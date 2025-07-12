@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sum of Two Numbers</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --border: #e0e0e0;
+      --accent: #1a73e8;
+      --accent-hover: #0d62c9;
+      --text: #333333;
+      --text-secondary: #5f6368;
+      --code-bg: #f8f9fa;
+      --success: #34a853;
+      --error: #ea4335;
+      --warning: #fbbc05;
+      --info: #4285f4;
+      --console-bg: #1e1e1e;
+      --console-text: #d4d4d4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 16px 24px;
+      background-color: var(--card);
+      font-size: 1.4rem;
+      color: var(--accent);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    @media (min-width: 769px) {
+      #main {
+        flex-direction: row;
+      }
+    }
+
+    #problem-section {
+      width: 100%;
+      background-color: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    @media (min-width: 769px) {
+      #problem-section {
+        width: 40%;
+        padding: 24px;
+      }
+    }
+
+    #editor-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 60vh;
+    }
+
+    @media (min-width: 769px) {
+      #editor-wrapper {
+        width: 60%;
+        height: auto;
+      }
+    }
+
+    #controls {
+      background-color: var(--card);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 769px) {
+      #controls {
+        padding: 12px 20px;
+        gap: 15px;
+      }
+    }
+
+    .control-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 769px) {
+      .control-group {
+        gap: 10px;
+      }
+    }
+
+    select, button {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background-color: var(--card);
+      color: var(--text);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 769px) {
+      select, button {
+        padding: 8px 14px;
+        font-size: 0.9rem;
+      }
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 14px;
+      padding-right: 30px;
+    }
+
+    button.primary {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    button.primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    button.secondary {
+      background-color: var(--card);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #editor-container {
+      flex: 1;
+      min-height: 100px;
+    }
+
+    #resizer {
+      height: 6px;
+      cursor: row-resize;
+      background: var(--border);
+      position: relative;
+    }
+
+    #resizer::before {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      border-top: 1px solid var(--text-secondary);
+      border-bottom: 1px solid var(--text-secondary);
+      opacity: 0.3;
+    }
+
+    #output-container {
+      display: flex;
+      flex-direction: column;
+      height: 200px;
+      background-color: var(--card);
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+
+    #output-toggle {
+      position: absolute;
+      top: -25px;
+      right: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      padding: 2px 8px;
+      border-radius: 4px 4px 0 0;
+      cursor: pointer;
+      font-size: 0.8rem;
+      z-index: 10;
+    }
+
+    #output-tabs {
+      display: flex;
+      background-color: var(--code-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .output-tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      border-right: 1px solid var(--border);
+      color: var(--text-secondary);
+      position: relative;
+    }
+
+    @media (min-width: 769px) {
+      .output-tab {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .output-tab.active {
+      background-color: var(--card);
+      color: var(--accent);
+      font-weight: 500;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .output-tab-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #output-content {
+      flex: 1;
+      overflow-y: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
+      background-color: var(--card);
+    }
+
+    @media (min-width: 769px) {
+      #output-content {
+        font-size: 0.9rem;
+      }
+    }
+
+    .tab-content {
+      height: 100%;
+      display: none;
+    }
+
+    #test-results {
+      padding: 10px 12px;
+    }
+
+    @media (min-width: 769px) {
+      #test-results {
+        padding: 12px 16px;
+      }
+    }
+
+    #console {
+      background-color: var(--console-bg);
+      color: var(--console-text);
+      padding: 10px 12px;
+      white-space: pre-wrap;
+    }
+
+    @media (min-width: 769px) {
+      #console {
+        padding: 12px 16px;
+      }
+    }
+
+    #submissions {
+      padding: 10px 12px;
+      overflow-y: auto;
+    }
+
+    @media (min-width: 769px) {
+      #submissions {
+        padding: 12px 16px;
+      }
+    }
+
+    .test-case {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    @media (min-width: 769px) {
+      .test-case {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+      }
+    }
+
+    .test-case:last-child {
+      border-bottom: none;
+    }
+
+    .test-case-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    @media (min-width: 769px) {
+      .test-case-header {
+        margin-bottom: 6px;
+      }
+    }
+
+    .test-case-title {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 769px) {
+      .test-case-title {
+        font-size: 1rem;
+      }
+    }
+
+    .test-case-result {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 769px) {
+      .test-case-result {
+        font-size: 1rem;
+      }
+    }
+
+    .passed {
+      color: var(--success);
+    }
+
+    .failed {
+      color: var(--error);
+    }
+
+    .test-case-details {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    @media (min-width: 769px) {
+      .test-case-details {
+        font-size: 0.85rem;
+      }
+    }
+
+    .test-case-input, .test-case-output, .test-case-expected {
+      margin-top: 2px;
+    }
+
+    @media (min-width: 769px) {
+      .test-case-input, .test-case-output, .test-case-expected {
+        margin-top: 4px;
+      }
+    }
+
+    .summary {
+      margin-top: 10px;
+      padding: 6px 10px;
+      background-color: var(--code-bg);
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 769px) {
+      .summary {
+        margin-top: 12px;
+        padding: 8px 12px;
+        font-size: 1rem;
+      }
+    }
+
+    .summary.passed {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success);
+    }
+
+    .summary.failed {
+      background-color: rgba(234, 67, 53, 0.1);
+      color: var(--error);
+    }
+
+    .execution-time {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    @media (min-width: 769px) {
+      .execution-time {
+        margin-top: 8px;
+        font-size: 0.8rem;
+      }
+    }
+
+    h1 { 
+      font-size: 1.3rem; 
+      margin-bottom: 12px; 
+      color: var(--text);
+    }
+    
+    @media (min-width: 769px) {
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+    }
+    
+    h2 { 
+      font-size: 1.1rem; 
+      color: var(--accent); 
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    
+    @media (min-width: 769px) {
+      h2 {
+        margin-top: 20px;
+      }
+    }
+    
+    p {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    
+    @media (min-width: 769px) {
+      p {
+        margin-bottom: 12px;
+        font-size: 1rem;
+      }
+    }
+    
+    pre { 
+      background: var(--code-bg); 
+      padding: 10px; 
+      border-radius: 4px; 
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+    }
+    
+    @media (min-width: 769px) {
+      pre {
+        padding: 12px;
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+      }
+    }
+    
+    code {
+      background-color: var(--code-bg);
+      padding: 2px 4px;
+      border-radius: 2px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+    }
+    
+    @media (min-width: 769px) {
+      code {
+        font-size: 0.9rem;
+      }
+    }
+    
+    ul, ol {
+      margin-left: 18px;
+      margin-bottom: 10px;
+    }
+    
+    @media (min-width: 769px) {
+      ul, ol {
+        margin-left: 20px;
+        margin-bottom: 12px;
+      }
+    }
+    
+    li {
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    
+    @media (min-width: 769px) {
+      li {
+        margin-bottom: 6px;
+      }
+    }
+
+    .constraints {
+      background-color: var(--code-bg);
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+    }
+
+    @media (min-width: 769px) {
+      .constraints {
+        padding: 12px;
+        margin-top: 16px;
+      }
+    }
+
+    .constraints h3 {
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+    }
+
+    @media (min-width: 769px) {
+      .constraints h3 {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+    }
+
+    .constraints ul {
+      margin-left: 0;
+      list-style-type: none;
+    }
+
+    .constraints li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 769px) {
+      .constraints li {
+        font-size: 0.9rem;
+      }
+    }
+
+    .constraints li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+
+    .difficulty {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 769px) {
+      .difficulty {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+      }
+    }
+
+    .easy {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success);
+    }
+
+    .problem-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    @media (min-width: 769px) {
+      .problem-meta {
+        margin-bottom: 16px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .console-line {
+      margin-bottom: 4px;
+      line-height: 1.4;
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 769px) {
+      .console-line {
+        font-size: 0.9rem;
+      }
+    }
+
+    .console-error {
+      color: #f48771;
+    }
+
+    .console-warning {
+      color: #e5c07b;
+    }
+
+    .console-info {
+      color: #56b6c2;
+    }
+
+    .console-success {
+      color: #98c379;
+    }
+
+    .submission {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .submission-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .submission-result {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 769px) {
+      .submission-result {
+        font-size: 1rem;
+      }
+    }
+
+    .submission-passed {
+      color: var(--success);
+    }
+
+    .submission-failed {
+      color: var(--error);
+    }
+
+    .submission-meta {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    @media (min-width: 769px) {
+      .submission-meta {
+        font-size: 0.85rem;
+      }
+    }
+
+    .submission-actions {
+      margin-top: 6px;
+      display: flex;
+      gap: 6px;
+    }
+
+    @media (min-width: 769px) {
+      .submission-actions {
+        margin-top: 8px;
+        gap: 8px;
+      }
+    }
+
+    .submission-actions button {
+      padding: 3px 6px;
+      font-size: 0.75rem;
+    }
+
+    @media (min-width: 769px) {
+      .submission-actions button {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .minimized {
+      height: 30px !important;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>Sum of Two Numbers</div>
+  <div class="header-actions">
+    <button class="secondary" onclick="resetCode()">Reset Code</button>
+    <button class="primary" onclick="runCode()">▶ Run Code</button>
+  </div>
+</header>
+
+<div id="main">
+  <!-- LEFT SIDE: PROBLEM DESCRIPTION -->
+  <div id="problem-section">
+    <h1>Sum of Two Numbers</h1>
+    
+    <div class="problem-meta">
+      <span class="difficulty easy">Easy</span>
+      <span>Acceptance: 89.5%</span>
+    </div>
+    
+    <h2>Description</h2>
+    <p>Write a function <code>sum_two_numbers(a, b)</code> that returns the sum of two integers.</p>
+    <p>This is a basic problem to test your understanding of function implementation and arithmetic operations.</p>
+
+    <h2>Function Signature</h2>
+    <pre><b>Python:</b> def sum_two_numbers(a, b):</pre>
+    <pre><b>Java:</b> public static int sumTwoNumbers(int a, int b)</pre>
+    <pre><b>JavaScript:</b> function sumTwoNumbers(a, b)</pre>
+    <pre><b>C++:</b> int sumTwoNumbers(int a, int b)</pre>
+
+    <h2>Examples</h2>
+    <h3>Example 1</h3>
+    <pre>Input: a = 1, b = 2
+Output: 3</pre>
+    
+    <h3>Example 2</h3>
+    <pre>Input: a = -1, b = 5
+Output: 4</pre>
+
+    <div class="constraints">
+      <h3>Constraints</h3>
+      <ul>
+        <li>-2<sup>31</sup> ≤ a, b ≤ 2<sup>31</sup> - 1</li>
+        <li>The sum will not exceed 32-bit integer range</li>
+      </ul>
+    </div>
+
+    <h2>Follow-up</h2>
+    <p>Can you implement this without using the + operator?</p>
+  </div>
+
+  <!-- RIGHT SIDE: EDITOR + OUTPUT -->
+  <div id="editor-wrapper">
+    <div id="controls">
+      <div class="control-group">
+        <select id="languageSelect" onchange="changeLanguage()">
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+          <option value="javascript">JavaScript</option>
+          <option value="c++">C++</option>
+        </select>
+        <button class="secondary" onclick="showHint()">💡 Hint</button>
+      </div>
+      <div class="control-group">
+        <button class="secondary" onclick="formatCode()">✨ Format</button>
+        <button class="primary" onclick="submitCode()">✅ Submit</button>
+      </div>
+    </div>
+
+    <div id="editor-container"></div>
+    <div id="resizer"></div>
+    
+    <div id="output-container">
+      <div id="output-toggle" onclick="toggleOutput()">▼ Minimize</div>
+      <div id="output-tabs">
+        <div class="output-tab active" onclick="switchTab('test-results')">
+          Test Results
+          <span id="test-results-badge" class="output-tab-badge" style="display: none;"></span>
+        </div>
+        <div class="output-tab" onclick="switchTab('console')">
+          Console Output
+          <span id="console-badge" class="output-tab-badge" style="display: none;"></span>
+        </div>
+        <div class="output-tab" onclick="switchTab('submissions')">
+          Submissions
+          <span id="submissions-badge" class="output-tab-badge" style="display: none;"></span>
+        </div>
+      </div>
+      <div id="output-content">
+        <div id="test-results" class="tab-content">
+          <p>Run your code to see test results...</p>
+        </div>
+        <div id="console" class="tab-content" style="display:none;">
+          <p>Console output will appear here...</p>
+        </div>
+        <div id="submissions" class="tab-content" style="display:none;">
+          <p>No submissions yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Monaco Editor -->
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+<script>
+  // Configuration and state
+  let editor;
+  let currentProblem = 'sum-two-numbers';
+  let language = 'python';
+  let submissionHistory = [];
+  let startTime;
+  let consoleOutput = [];
+  let testResults = [];
+  let isRunning = false;
+  let isOutputMinimized = false;
+
+  // Rate limiting
+  let lastExecutionTime = 0;
+  const EXECUTION_DELAY = 500;
+  const MAX_RETRIES = 2;
+
+  // Problem registry
+  const problems = {};
+  const problemList = ['sum-two-numbers', 'sum-three-numbers', 'square', 'amstrong-number'];
+  const queryString = window.location.search;
+
+  // Initialize Monaco Editor
+  require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' } });
+  require(['vs/editor/editor.main'], async function() {
+    editor = monaco.editor.create(document.getElementById('editor-container'), {
+      value: '',
+      language: language,
+      theme: 'vs',
+      automaticLayout: true,
+      fontSize: 14,
+      minimap: { enabled: true },
+      scrollBeyondLastLine: false,
+      roundedSelection: true,
+      renderWhitespace: 'selection',
+      wordWrap: 'on',
+      wrappingIndent: 'indent'
+    });
+
+    // Load initial problem
+    await loadProblem(currentProblem);
+    createProblemSelector();
+  });
+
+  // Load problem definition
+  async function loadProblem(problemId) {
+    try {
+      if (problems[problemId]) {
+        currentProblem = problemId;
+        updateProblemUI();
+        return true;
+      }
+
+      const response = await fetch(`problems/${problemId}.js`);
+      if (!response.ok) throw new Error('Problem not found');
+      const problemCode = await response.text();
+      
+      const problemModule = {};
+      new Function('module', problemCode)(problemModule);
+      
+      problems[problemId] = problemModule.exports;
+      currentProblem = problemId;
+      
+      updateProblemUI();
+      return true;
+    } catch (error) {
+      console.error(`Failed to load problem ${problemId}:`, error);
+      alert(`Failed to load problem: ${problemId}`);
+      return false;
+    }
+  }
+
+  // Create problem selector dropdown
+  function createProblemSelector() {
+    const controls = document.getElementById('controls');
+    const select = document.createElement('select');
+
+    const urlParams = new URLSearchParams(queryString);
+    const redirected_problem = urlParams.get('id');
+
+    select.id = 'problemSelect';
+    switchProblem(redirected_problem);
+    
+    problemList.forEach(problemId => {
+      const option = document.createElement('option');
+      option.value = problemId;
+      option.textContent = problemId.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      option.selected = problemId === currentProblem;
+      select.appendChild(option);
+    });
+
+    const group = document.createElement('div');
+    group.className = 'control-group';
+    // group.innerHTML = '<label for="problemSelect">Problem:</label>';
+    // group.appendChild(select);
+    // controls.insertBefore(group, controls.firstChild);
+  }
+
+  // Switch between problems
+  async function switchProblem(problemId) {
+    if (isRunning) {
+      addConsoleMessage("Please wait for current execution to complete", "warning");
+      document.getElementById('problemSelect').value = currentProblem;
+      return;
+    }
+    if (await loadProblem(problemId)) {
+      addConsoleMessage(`Loaded problem: ${problems[problemId].title}`, "info");
+    }
+  }
+
+  // Update UI with current problem
+  function updateProblemUI() {
+    const problem = problems[currentProblem];
+    if (!problem) return;
+    
+    document.querySelector('header div:first-child').textContent = 
+      `${problem.title}`;
+    
+    document.getElementById('problem-section').innerHTML = `
+      <h1>${problem.title}</h1>
+      <div class="problem-meta">
+        <span class="difficulty ${problem.difficulty}">${problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1)}</span>
+        <span>Acceptance: ${problem.acceptance}</span>
+      </div>
+      <h2>Description</h2>
+      ${problem.description}
+      <h2>Function Signature</h2>
+      ${problem.signatures}
+      <h2>Examples</h2>
+      ${problem.examples}
+      <div class="constraints">
+        <h3>Constraints</h3>
+        ${problem.constraints}
+      </div>
+      ${problem.followUp ? `<h2>Follow-up</h2><p>${problem.followUp}</p>` : ''}
+    `;
+    
+    editor.setValue(problem.templates[language] || '');
+    monaco.editor.setModelLanguage(editor.getModel(), language);
+    
+    updateTestResultsTab('Run your code to see test results...');
+    updateConsoleTab('Console output will appear here...');
+  }
+
+  // Toggle output panel visibility
+  function toggleOutput() {
+    const outputContainer = document.getElementById('output-container');
+    const toggleButton = document.getElementById('output-toggle');
+    
+    if (isOutputMinimized) {
+      outputContainer.classList.remove('minimized');
+      toggleButton.textContent = '▼ Minimize';
+      isOutputMinimized = false;
+    } else {
+      outputContainer.classList.add('minimized');
+      toggleButton.textContent = '▲ Maximize';
+      isOutputMinimized = true;
+    }
+  }
+
+  // Change programming language
+  function changeLanguage() {
+    if (isRunning) {
+      addConsoleMessage("Please wait for current execution to complete", "warning");
+      document.getElementById('languageSelect').value = language;
+      return;
+    }
+    language = document.getElementById('languageSelect').value;
+    monaco.editor.setModelLanguage(editor.getModel(), language);
+    
+    const problem = problems[currentProblem];
+    if (problem) {
+      editor.setValue(problem.templates[language] || '');
+    }
+    
+    updateTestResultsTab('Run your code to see test results...');
+    updateConsoleTab('Console output will appear here...');
+  }
+
+  // Reset code to template
+  function resetCode() {
+    if (isRunning) {
+      addConsoleMessage("Please wait for current execution to complete", "warning");
+      return;
+    }
+    if (confirm("Are you sure you want to reset your code to the default template?")) {
+      const problem = problems[currentProblem];
+      if (problem) {
+        editor.setValue(problem.templates[language] || '');
+      }
+      addConsoleMessage("Code reset to default template.", "info");
+    }
+  }
+
+  // Show hint for current problem
+  function showHint() {
+    const problem = problems[currentProblem];
+    if (!problem) return;
+    
+    const hints = {
+      python: "Remember that Python can handle very large integers automatically.",
+      java: "In Java, make sure to declare the correct return type.",
+      javascript: "JavaScript uses the + operator for both addition and concatenation.",
+      "c++": "In C++, watch out for integer overflow."
+    };
+    
+    alert(problem.followUp || hints[language] || "Try implementing the basic operation.");
+  }
+
+  // Format code using Monaco's formatter
+  function formatCode() {
+    if (isRunning) {
+      addConsoleMessage("Please wait for current execution to complete", "warning");
+      return;
+    }
+    editor.getAction('editor.action.formatDocument').run();
+    addConsoleMessage("Code formatted successfully.", "success");
+  }
+
+  // Submit code (run all test cases)
+  function submitCode() {
+    runCode(true);
+  }
+
+  // Main execution function
+  async function runCode(isSubmission = false) {
+    if (isRunning) {
+      addConsoleMessage("Already running code. Please wait...", "warning");
+      return;
+    }
+    
+    isRunning = true;
+    startTime = performance.now();
+    const code = editor.getValue();
+    const problem = problems[currentProblem];
+    
+    if (!problem) {
+      addConsoleMessage("No problem loaded", "error");
+      isRunning = false;
+      return;
+    }
+    
+    if (isSubmission) {
+      submissionHistory.unshift({
+        code: code,
+        language: language,
+        timestamp: new Date().toISOString(),
+        results: null,
+        problem: currentProblem
+      });
+      updateSubmissionsTab();
+      switchTab('test-results');
+    } else {
+      switchTab('console');
+    }
+
+    try {
+      if (isSubmission) {
+        const results = await executeAllTestCases(code, problem.testCases);
+        const endTime = performance.now();
+        const executionTime = (endTime - startTime).toFixed(2);
+        
+        testResults = results;
+        const passedCount = results.filter(r => r.passed).length;
+        updateTestResults(results, passedCount, executionTime);
+        
+        submissionHistory[0].results = {
+          passed: passedCount,
+          total: problem.testCases.length,
+          time: executionTime
+        };
+        updateSubmissionsTab();
+        updateBadge('submissions-badge', submissionHistory.length);
+        
+        addConsoleMessage(`Test execution completed in ${executionTime} ms`, "info");
+      } else {
+        // For Run button, just execute the first 2 test cases
+        const testCasesToRun = problem.testCases.slice(0, 2);
+        const results = [];
+        
+        for (const tc of testCasesToRun) {
+          const result = await executeTestCase(code, tc, problem);
+          results.push(result);
+        }
+        
+        const endTime = performance.now();
+        const executionTime = (endTime - startTime).toFixed(2);
+        
+        clearConsole();
+        results.forEach((result, index) => {
+          const tc = testCasesToRun[index];
+          if (result.error) {
+            addConsoleMessage(`Test case ${tc.id} failed: ${result.error}`, "error");
+          } else {
+            addConsoleMessage(`Test case ${tc.id}: Input (${tc.input.join(', ')}) => Output: ${result.output} (Expected: ${tc.expected})`, 
+              result.passed ? "success" : "error");
+          }
+        });
+        addConsoleMessage(`Execution completed in ${executionTime} ms`, "info");
+      }
+    } catch (error) {
+      updateTestResultsTab(`<p style="color: var(--error)">Error: ${error.message}</p>`);
+      addConsoleMessage(`Execution error: ${error.message}`, "error");
+      console.error(error);
+    } finally {
+      isRunning = false;
+    }
+  }
+
+  // Execute all test cases with rate limiting
+  async function executeAllTestCases(code, testCases) {
+    const results = [];
+    let passedCount = 0;
+    
+    updateTestResultsTab("<p>Running tests...</p>");
+    clearConsole();
+    addConsoleMessage("Compiling and running code...", "info");
+    
+    for (const tc of testCases) {
+      let result;
+      let retries = 0;
+      let lastError = null;
+      
+      while (retries <= MAX_RETRIES) {
+        try {
+          const now = Date.now();
+          const timeSinceLast = now - lastExecutionTime;
+          if (timeSinceLast < EXECUTION_DELAY) {
+            const delay = EXECUTION_DELAY - timeSinceLast;
+            addConsoleMessage(`Waiting ${delay}ms to avoid rate limiting...`, "info");
+            await new Promise(resolve => setTimeout(resolve, delay));
+          }
+          
+          lastExecutionTime = Date.now();
+          result = await executeTestCase(code, tc, problems[currentProblem]);
+          break;
+        } catch (error) {
+          lastError = error;
+          retries++;
+          if (retries <= MAX_RETRIES) {
+            addConsoleMessage(`Retrying test case ${tc.id} (attempt ${retries}/${MAX_RETRIES})...`, "warning");
+            await new Promise(resolve => setTimeout(resolve, EXECUTION_DELAY * retries));
+          }
+        }
+      }
+      
+      if (retries > MAX_RETRIES && !result) {
+        result = {
+          output: null,
+          passed: false,
+          error: lastError?.message || "Max retries exceeded"
+        };
+        addConsoleMessage(`Test case ${tc.id} failed after ${MAX_RETRIES} retries`, "error");
+      }
+      
+      results.push(result);
+      if (result.passed) passedCount++;
+      updateTestResults(results, passedCount);
+    }
+    
+    return results;
+  }
+
+  // Execute single test case
+  async function executeTestCase(code, testCase, problem) {
+    // Try local execution for JavaScript
+    if (language === 'javascript') {
+      try {
+        const localResult = executeJSLocally(code, testCase.input, problem);
+        if (localResult) {
+          addConsoleMessage(`Test case ${testCase.id} executed locally`, "info");
+          return localResult;
+        }
+      } catch (e) {
+        addConsoleMessage(`Local execution failed: ${e.message}`, "warning");
+      }
+    }
+
+    const wrappedCode = problem.wrapCode(language, code, testCase.input);
+    const langMap = { 
+      python: 'python', 
+      java: 'java',
+      javascript: 'javascript',
+      "c++": 'c++'
+    };
+    const versionMap = { 
+      python: '3.10.0', 
+      java: '15.0.2',
+      javascript: '16.13.0',
+      "c++": '10.2.0'
+    };
+
+    try {
+      const res = await fetch("https://emkc.org/api/v2/piston/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          language: langMap[language],
+          version: versionMap[language],
+          files: [{ 
+            name: getFileName(language), 
+            content: wrappedCode 
+          }]
+        })
+      });
+
+      if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error("API rate limit exceeded - please wait a moment and try again");
+        }
+        throw new Error(`API request failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      
+      if (!data || !data.run) {
+        throw new Error("Invalid API response structure");
+      }
+
+      if (data.run.stdout) {
+        addConsoleMessage(data.run.stdout, "info");
+      }
+      if (data.run.stderr) {
+        addConsoleMessage(data.run.stderr, "error");
+      }
+      
+      if (data.compile && data.compile.stderr) {
+        return {
+          output: null,
+          passed: false,
+          error: data.compile.stderr
+        };
+      }
+
+      const output = data.run.output ? data.run.output.trim() : '';
+      let parsedOutput = output;
+      
+      if (language === 'java' || language === 'c++') {
+        const match = output.match(/-?\d+/);
+        if (match) parsedOutput = match[0];
+      }
+      
+      const passed = parsedOutput === testCase.expected.toString();
+      
+      return {
+        output: parsedOutput || 'No output',
+        passed: passed,
+        error: data.run.stderr || null
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Execute JavaScript locally
+  function executeJSLocally(code, input, problem) {
+    try {
+      const funcName = problem.templates.javascript.match(/function (\w+)/)[1];
+      const func = new Function('a', 'b', 'c', `
+        try {
+          ${code}
+          return ${funcName}(a, b, c);
+        } catch (e) {
+          return { error: e.message };
+        }
+      `);
+      
+      const result = func(...input);
+      
+      if (result && typeof result === 'object' && result.error) {
+        return {
+          output: null,
+          passed: false,
+          error: result.error
+        };
+      }
+      
+      return {
+        output: String(result),
+        passed: String(result) === String(input.reduce((a, b) => a + b, 0)),
+        error: null
+      };
+    } catch (e) {
+      return {
+        output: null,
+        passed: false,
+        error: e.message
+      };
+    }
+  }
+
+  // Get filename for language
+  function getFileName(lang) {
+    switch(lang) {
+      case 'java': return 'Main.java';
+      case 'python': return 'main.py';
+      case 'javascript': return 'main.js';
+      case 'c++': return 'main.cpp';
+      default: return 'main';
+    }
+  }
+
+  // Update test results display
+  function updateTestResults(results, passedCount, executionTime) {
+    const problem = problems[currentProblem];
+    if (!problem) return;
+    
+    let html = '';
+    
+    results.forEach((result, index) => {
+      const tc = problem.testCases[index];
+      html += `
+        <div class="test-case">
+          <div class="test-case-header">
+            <span class="test-case-title">Test Case #${tc.id}</span>
+            <span class="test-case-result ${result.passed ? 'passed' : 'failed'}">
+              ${result.passed ? '✓ Passed' : '✗ Failed'}
+            </span>
+          </div>
+          <div class="test-case-details">
+            <div class="test-case-input"><b>Input:</b> ${tc.input.map((v, i) => 
+              `${String.fromCharCode(97 + i)} = ${v}`).join(', ')}</div>
+            <div class="test-case-output"><b>Output:</b> ${result.output || 'No output'}</div>
+            <div class="test-case-expected"><b>Expected:</b> ${tc.expected}</div>
+            ${result.error ? `<div class="test-case-error"><b>Error:</b> <span class="console-error">${result.error}</span></div>` : ''}
+          </div>
+        </div>
+      `;
+    });
+    
+    const successRate = Math.round((passedCount / problem.testCases.length) * 100);
+    html += `
+      <div class="summary ${passedCount === problem.testCases.length ? 'passed' : 'failed'}">
+        ${passedCount === problem.testCases.length ? 'All test cases passed!' : 
+          `${passedCount} of ${problem.testCases.length} test cases passed (${successRate}%)`}
+      </div>
+      ${executionTime ? `<div class="execution-time">Execution time: ${executionTime} ms</div>` : ''}
+    `;
+    
+    updateTestResultsTab(html);
+    
+    const failedCount = problem.testCases.length - passedCount;
+    if (failedCount > 0) {
+      updateBadge('test-results-badge', failedCount);
+    }
+  }
+
+  // Switch between tabs
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.style.display = 'none';
+    });
+    
+    document.querySelectorAll('.output-tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    
+    document.getElementById(tabId).style.display = 'block';
+    document.querySelector(`.output-tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+    
+    if (tabId === 'test-results') {
+      document.getElementById('test-results-badge').style.display = 'none';
+    } else if (tabId === 'console') {
+      document.getElementById('console-badge').style.display = 'none';
+    }
+  }
+
+  // Update test results tab content
+  function updateTestResultsTab(content) {
+    document.getElementById('test-results').innerHTML = content;
+  }
+
+  // Update console tab content
+  function updateConsoleTab(content) {
+    document.getElementById('console').innerHTML = content;
+  }
+
+  // Clear console
+  function clearConsole() {
+    consoleOutput = [];
+    updateConsoleTab('');
+  }
+
+  // Add message to console
+  function addConsoleMessage(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    consoleOutput.push({ message, type, timestamp });
+    
+    let html = '';
+    consoleOutput.forEach(msg => {
+      html += `<div class="console-line console-${msg.type}">[${msg.timestamp}] ${msg.message}</div>`;
+    });
+    
+    updateConsoleTab(html);
+    document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
+    
+    if (document.getElementById('console').style.display === 'none') {
+      updateBadge('console-badge', consoleOutput.length);
+    }
+  }
+
+  // Update submissions tab
+  function updateSubmissionsTab() {
+    const submissionsDiv = document.getElementById('submissions');
+    if (submissionHistory.length === 0) {
+      submissionsDiv.innerHTML = '<p>No submissions yet.</p>';
+      return;
+    }
+    
+    let html = '<h3>Your Submissions</h3>';
+    submissionHistory.forEach((sub, index) => {
+      const date = new Date(sub.timestamp).toLocaleString();
+      const results = sub.results ? 
+        `${sub.results.passed}/${sub.results.total} passed (${sub.results.time} ms)` : 
+        'Not executed';
+      const resultClass = sub.results ? 
+        (sub.results.passed === sub.results.total ? 'submission-passed' : 'submission-failed') : '';
+      const problemTitle = problems[sub.problem]?.title || sub.problem;
+      
+      html += `
+        <div class="submission">
+          <div class="submission-header">
+            <div><strong>#${index + 1}</strong> - ${problemTitle} (${sub.language})</div>
+            <div class="submission-result ${resultClass}">${results}</div>
+          </div>
+          <div class="submission-meta">${date}</div>
+          <div class="submission-actions">
+            <button onclick="viewSubmission(${index})">View Code</button>
+            <button onclick="rerunSubmission(${index})">Run Again</button>
+          </div>
+        </div>
+      `;
+    });
+    
+    submissionsDiv.innerHTML = html;
+    updateBadge('submissions-badge', submissionHistory.length);
+  }
+
+  // Update badge count
+  function updateBadge(badgeId, count) {
+    const badge = document.getElementById(badgeId);
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+
+  // View submission code
+  function viewSubmission(index) {
+    if (isRunning) {
+      addConsoleMessage("Please wait for current execution to complete", "warning");
+      return;
+    }
+    if (index >= 0 && index < submissionHistory.length) {
+      const submission = submissionHistory[index];
+      editor.setValue(submission.code);
+      document.getElementById('languageSelect').value = submission.language;
+      language = submission.language;
+      monaco.editor.setModelLanguage(editor.getModel(), language);
+      
+      if (submission.problem !== currentProblem) {
+        loadProblem(submission.problem);
+      }
+      
+      addConsoleMessage(`Loaded submission #${index + 1} from ${new Date(submission.timestamp).toLocaleString()}`, "info");
+      switchTab('console');
+    }
+  }
+
+  // Rerun submission
+  function rerunSubmission(index) {
+    if (index >= 0 && index < submissionHistory.length) {
+      const submission = submissionHistory[index];
+      editor.setValue(submission.code);
+      document.getElementById('languageSelect').value = submission.language;
+      language = submission.language;
+      monaco.editor.setModelLanguage(editor.getModel(), language);
+      
+      if (submission.problem !== currentProblem) {
+        loadProblem(submission.problem);
+      }
+      
+      runCode();
+      addConsoleMessage(`Re-running submission #${index + 1}`, "info");
+    }
+  }
+
+  // Resizer functionality
+  const resizer = document.getElementById('resizer');
+  const outputContainer = document.getElementById('output-container');
+
+  let isDragging = false;
+  resizer.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    document.body.style.cursor = 'row-resize';
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  });
+
+  function handleMouseMove(e) {
+    if (!isDragging) return;
+    const containerRect = outputContainer.parentElement.getBoundingClientRect();
+    const newHeight = containerRect.bottom - e.clientY;
+    outputContainer.style.height = `${Math.max(30, newHeight)}px`;
+    isOutputMinimized = false;
+    document.getElementById('output-toggle').textContent = '▼ Minimize';
+  }
+
+  function handleMouseUp() {
+    isDragging = false;
+    document.body.style.cursor = 'default';
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }
+</script>
+<script>
+  function showMobileBlocker() {
+    if (window.innerWidth > 768) return;
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'simple-mobile-overlay';
+    overlay.innerHTML = `
+      <div class="simple-message">
+        <p>For the best experience, please use a desktop or tablet.</p>
+      </div>
+    `;
+
+    // Apply minimal styles
+    const style = document.createElement('style');
+    style.textContent = `
+      #simple-mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      
+      .simple-message {
+        max-width: 400px;
+        padding: 24px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+      }
+      
+      .simple-message p {
+        margin: 0;
+        color: #333;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(overlay);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      overlay.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => overlay.remove(), 300);
+    }, 5000);
+  }
+
+  window.addEventListener('load', showMobileBlocker);
+  window.addEventListener('resize', showMobileBlocker);
+</script>
+
+</body>
+</html>
