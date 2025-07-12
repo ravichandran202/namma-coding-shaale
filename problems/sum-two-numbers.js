@@ -4,8 +4,14 @@ module.exports = {
   acceptance: '89.5%',
   
   description: `
-    <p>Write a function <code>sum_two_numbers(a, b)</code> that returns the sum of two integers.</p>
-    <p>This is a basic problem to test your understanding of function implementation and arithmetic operations.</p>
+    <p>Implement a function that takes two integers as input and returns their sum.</p>
+    <p><b>Requirements:</b></p>
+    <ul>
+      <li>The function should be named <code>sum_two_numbers</code> (Python) or <code>sumTwoNumbers</code> (Java/JavaScript/C++)</li>
+      <li>It should accept two integer parameters</li>
+      <li>It should return the sum of these parameters</li>
+    </ul>
+    <p>This problem tests basic function implementation and arithmetic operations. While the solution is straightforward, pay attention to edge cases like negative numbers and zero.</p>
   `,
 
   signatures: `
@@ -16,29 +22,33 @@ module.exports = {
   `,
 
   examples: `
-    <h3>Example 1</h3>
+    <h3>Example 1: Basic Case</h3>
     <pre>Input: a = 1, b = 2
-Output: 3</pre>
+Output: 3
+Explanation: 1 + 2 = 3</pre>
     
-    <h3>Example 2</h3>
+    <h3>Example 2: Negative Numbers</h3>
     <pre>Input: a = -1, b = 5
-Output: 4</pre>
+Output: 4
+Explanation: -1 + 5 = 4</pre>
   `,
 
   constraints: `
     <ul>
       <li>-2<sup>31</sup> ≤ a, b ≤ 2<sup>31</sup> - 1</li>
       <li>The sum will not exceed 32-bit integer range</li>
+      <li>For languages with fixed-size integers (like Java), you don't need to handle overflow</li>
     </ul>
   `,
 
-  followUp: 'Can you implement this without using the + operator?',
+  followUp: 'Can you implement this without using the + operator? (Hint: Look into bit manipulation)',
 
   testCases: [
     { id: 1, input: [1, 2], expected: "3" },
     { id: 2, input: [-1, 5], expected: "4" },
     { id: 3, input: [0, 0], expected: "0" },
-    { id: 4, input: [100, -50], expected: "50" }
+    { id: 4, input: [100, -50], expected: "50" },
+    { id: 5, input: [2147483647, 1], expected: "2147483648" }
   ],
 
   templates: {

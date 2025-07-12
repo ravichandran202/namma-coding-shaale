@@ -4,9 +4,17 @@ module.exports = {
     acceptance: '89.5%',
   
     description: `
-      <p>Write a function <code>square_of_number(num)</code> that returns the square of the input number.</p>
-      <p>This is a basic problem to test your understanding of function implementation and arithmetic operations.</p>
-    `,
+    <p>Implement a function that calculates the square of an integer.</p>
+    <p><b>Requirements:</b></p>
+    <ul>
+      <li>The function should be named <code>square_of_number</code> (Python) or <code>squareOfNumber</code> (Java/JavaScript/C++)</li>
+      <li>It should accept one integer parameter</li>
+      <li>It should return the square of the input (num × num)</li>
+    </ul>
+    <p>This problem tests basic function implementation and arithmetic operations. While simple, pay attention to edge cases like negative numbers and zero.</p>
+    <p><b>Note:</b> The square of a number is always non-negative, regardless of whether the input is positive or negative.</p>
+  `,
+
   
     signatures: `
       <pre><b>Python:</b> def square_of_number(num):</pre>

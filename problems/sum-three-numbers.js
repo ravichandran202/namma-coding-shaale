@@ -4,9 +4,15 @@ module.exports = {
     acceptance: '85.2%',
     
     description: `
-      <p>Write a function <code>sum_three_numbers(a, b, c)</code> that returns the sum of three integers.</p>
-      <p>This problem extends the basic sum operation to three parameters.</p>
-    `,
+    <p>Implement a function that calculates the sum of three integers.</p>
+    <p><b>Requirements:</b></p>
+    <ul>
+      <li>The function should be named <code>sum_three_numbers</code> (Python) or <code>sumThreeNumbers</code> (Java/JavaScript/C++)</li>
+      <li>It should accept three integer parameters</li>
+      <li>It should return the sum of these parameters</li>
+    </ul>
+    <p>This problem extends the basic sum operation to three parameters, testing your understanding of function implementation with multiple arguments.</p>
+  `,
     
     signatures: `
       <pre><b>Python:</b> def sum_three_numbers(a, b, c):</pre>

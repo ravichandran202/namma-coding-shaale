@@ -4,10 +4,22 @@ module.exports = {
   acceptance: '87.3%',
 
   description: `
-    <p>Write a function <code>is_armstrong_number(num)</code> that determines whether the given number is an <strong>Armstrong number</strong>.</p>
-    <p>An <strong>Armstrong number</strong> (also known as a narcissistic number) is a number that is equal to the sum of its own digits each raised to the power of the number of digits.</p>
-    <p>For example, 153 is an Armstrong number because <code>1^3 + 5^3 + 3^3 = 153</code>.</p>
-  `,
+  <p>Implement a function to determine if a number is an <strong>Armstrong number</strong> (also known as narcissistic number).</p>
+  
+  <p><b>Definition:</b></p>
+  <p>An Armstrong number is a number that equals the sum of its own digits each raised to the power of the number of digits.</p>
+  
+  <p><b>Mathematical Formulation:</b></p>
+  <p>For an n-digit number num with digits d₁d₂...dₙ:</p>
+  <p>num = d₁<sup>n</sup> + d₂<sup>n</sup> + ... + dₙ<sup>n</sup></p>
+  
+  <p><b>Key Properties:</b></p>
+  <ul>
+    <li>All single-digit numbers (0-9) are Armstrong numbers</li>
+    <li>There are no 2-digit Armstrong numbers</li>
+    <li>The sequence continues with 153, 370, 371, 407, etc.</li>
+  </ul>
+`,
 
   signatures: `
     <pre><b>Python:</b> def is_armstrong_number(num):</pre>
