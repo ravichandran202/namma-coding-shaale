@@ -38,7 +38,7 @@
       line-height: 1.5;
     }
 
-    header {
+    /* header {
       padding: 16px 24px;
       background-color: var(--card);
       font-size: 1.4rem;
@@ -47,12 +47,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
+    } */
 
-    .header-actions {
+    /* .header-actions {
       display: flex;
       gap: 10px;
-    }
+    } */
 
     #main {
       display: flex;
@@ -749,6 +749,13 @@
 </head>
 <body>
 
+<!-- <header>
+  <div>Sum of Two Numbers</div>
+  <div class="header-actions">
+    <button class="secondary" onclick="resetCode()">Reset Code</button>
+  </div>
+</header> -->
+
 <div id="main">
   <!-- LEFT SIDE: PROBLEM DESCRIPTION -->
   <div id="problem-section">
@@ -960,8 +967,8 @@ Output: 4</pre>
     const problem = problems[currentProblem];
     if (!problem) return;
     
-    document.querySelector('header div:first-child').textContent = 
-      `${problem.title}`;
+    // document.querySelector('header div:first-child').textContent = 
+    //   `${problem.title}`;
     
     document.getElementById('problem-section').innerHTML = `
       <h1>${problem.title}</h1>
