@@ -25,17 +25,155 @@
       --row-hover: #f1f5f9;
       --meter-background: #e2e8f0;
       --meter-fill: #3b82f6;
+      --sidebar-width: 280px;
+      --sidebar-bg: #ffffff;
+      --sidebar-text: #1e293b;
+      --sidebar-active-bg: #f1f5f9;
+      --sidebar-hover-bg: #f8fafc;
     }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      padding: 1rem;
       font-weight: 400;
       line-height: 1.5;
+      overflow-x: hidden;
     }
 
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background-color: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      padding: 1rem;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sidebar-header {
+      padding: 1rem 0.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-header h3 {
+      font-weight: 700;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-menu a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-menu a:hover {
+      background-color: var(--sidebar-hover-bg);
+      color: var(--primary);
+    }
+
+    .sidebar-menu a.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .sidebar-menu a i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    /* Mobile Menu Toggle Button */
+    .menu-toggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1100;
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Status Styles */
     .status {
       display: inline-block;
       width: 16px;
@@ -288,9 +426,8 @@
         font-size: 0.9rem;
       }
 
-      .container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+      .main-content {
+        padding: 0.75rem;
       }
 
       .search-container {
@@ -329,6 +466,25 @@
       }
     }
 
+    /* Desktop styles */
+    @media (min-width: 992px) {
+      .sidebar {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      .sidebar-overlay {
+        display: none;
+      }
+
+      .main-content {
+        margin-left: var(--sidebar-width);
+      }
+    }
+
     /* Premium look enhancements */
     .header-container {
       background-color: white;
@@ -361,82 +517,114 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Sidebar Overlay (for mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Digital Meter UI for Total Problems Solved -->
-    <div class="digital-meter">
-      <div class="digital-meter-title">Total Problems Solved</div>
-      <div class="digital-meter-value" id="total-problems-count">0</div>
-      <div class="digital-meter-total">out of <span id="total-problems-total">100</span> problems</div>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3><i class="fas fa-code me-1"></i> DSA Tracker</h3>
     </div>
+    <ul class="sidebar-menu">
+      <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-list-check"></i> Problem List</a></li>
+      <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> Study Plan</a></li>
+      <li><a href="#"><i class="fas fa-clipboard"></i> Notes</a></li>
+      <li><a href="#"><i class="fas fa-star"></i> Favorites</a></li>
+      <li><a href="#"><i class="fas fa-trophy"></i> Challenges</a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <p>DSA Tracker v1.0</p>
+    </div>
+  </div>
 
-    <!-- Progress Overview Section -->
-    <div class="progress-overview">
-      <h3>Progress by Difficulty</h3>
-      
-      <div class="row">
-        <div class="col-md-4">
-          <div class="progress-item progress-easy">
-            <div class="progress-title">
-              <span>Easy</span>
-              <span class="progress-count"><span id="easy-count">0</span>/<span id="easy-total">40</span></span>
-            </div>
-            <div class="progress-bar-container">
-              <div id="easy-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+  <!-- Mobile Menu Toggle Button -->
+  <button class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <div class="container-fluid">
+
+      <!-- Digital Meter UI for Total Problems Solved -->
+      <div class="digital-meter">
+        <div class="digital-meter-title">Total Problems Solved</div>
+        <div class="digital-meter-value" id="total-problems-count">0</div>
+        <div class="digital-meter-total">out of <span id="total-problems-total">100</span> problems</div>
+      </div>
+
+      <!-- Progress Overview Section -->
+      <div class="progress-overview">
+        <h3>Progress by Difficulty</h3>
+        
+        <div class="row">
+          <div class="col-md-4">
+            <div class="progress-item progress-easy">
+              <div class="progress-title">
+                <span>Easy</span>
+                <span class="progress-count"><span id="easy-count">0</span>/<span id="easy-total">40</span></span>
+              </div>
+              <div class="progress-bar-container">
+                <div id="easy-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="progress-item progress-medium">
-            <div class="progress-title">
-              <span>Medium</span>
-              <span class="progress-count"><span id="medium-count">0</span>/<span id="medium-total">40</span></span>
-            </div>
-            <div class="progress-bar-container">
-              <div id="medium-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+          
+          <div class="col-md-4">
+            <div class="progress-item progress-medium">
+              <div class="progress-title">
+                <span>Medium</span>
+                <span class="progress-count"><span id="medium-count">0</span>/<span id="medium-total">40</span></span>
+              </div>
+              <div class="progress-bar-container">
+                <div id="medium-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div class="col-md-4">
-          <div class="progress-item progress-hard">
-            <div class="progress-title">
-              <span>Hard</span>
-              <span class="progress-count"><span id="hard-count">0</span>/<span id="hard-total">20</span></span>
-            </div>
-            <div class="progress-bar-container">
-              <div id="hard-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+          
+          <div class="col-md-4">
+            <div class="progress-item progress-hard">
+              <div class="progress-title">
+                <span>Hard</span>
+                <span class="progress-count"><span id="hard-count">0</span>/<span id="hard-total">20</span></span>
+              </div>
+              <div class="progress-bar-container">
+                <div id="hard-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Search and Filters -->
-    <div class="search-container d-flex gap-2 mb-3">
-      <input type="text" class="form-control search-input" id="searchInput" placeholder="Search problems...">
-      <button class="btn btn-primary btn-sm d-flex align-items-center gap-2" id="resetBtn">
-        <i class="fas fa-sync-alt"></i> Reset
-      </button>
-    </div>
+      <!-- Search and Filters -->
+      <div class="search-container d-flex gap-2 mb-3">
+        <input type="text" class="form-control search-input" id="searchInput" placeholder="Search problems...">
+        <button class="btn btn-primary btn-sm d-flex align-items-center gap-2" id="resetBtn">
+          <i class="fas fa-sync-alt"></i> Reset
+        </button>
+      </div>
 
-    <div class="filter-scroll mb-3">
-      <div class="d-flex gap-2 filter-buttons">
-        <button class="btn btn-sm btn-primary active" data-filter="all">All</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="easy">Easy</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="medium">Medium</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="hard">Hard</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="solved">Solved</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="attempted">Attempted</button>
-        <button class="btn btn-sm btn-outline-secondary" data-filter="unsolved">Unsolved</button>
+      <div class="filter-scroll mb-3">
+        <div class="d-flex gap-2 filter-buttons">
+          <button class="btn btn-sm btn-primary active" data-filter="all">All</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="easy">Easy</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="medium">Medium</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="hard">Hard</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="solved">Solved</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="attempted">Attempted</button>
+          <button class="btn btn-sm btn-outline-secondary" data-filter="unsolved">Unsolved</button>
+        </div>
+      </div>
+
+      <!-- Problem Sections -->
+      <div id="sections-container">
+        <!-- Sections will be loaded here dynamically -->
       </div>
     </div>
-
-    <!-- Problem Sections -->
-    <div id="sections-container">
-      <!-- Sections will be loaded here dynamically -->
-    </div>
+  </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -445,7 +633,7 @@
   <script>
     // Problem data module
     const ProblemData = (() => {
-        const sections = [
+      const sections = [
     {
       id: "basic-problems",
       title: "1. Basic Python Problems",
@@ -1409,6 +1597,7 @@
     }
   ];
 
+        
       const getAllProblems = () => {
         return sections.flatMap(section => section.type === "problems" ? section.problems : []);
       };
@@ -1518,7 +1707,11 @@
             total: '#hard-total',
             bar: '#hard-progress-bar'
           }
-        }
+        },
+        sidebar: '#sidebar',
+        mainContent: '#mainContent',
+        menuToggle: '#menuToggle',
+        sidebarOverlay: '#sidebarOverlay'
       };
       
       const renderProblems = (problems) => {
@@ -1731,13 +1924,19 @@
         return document.querySelector(DOMStrings.searchInput).value.trim();
       };
       
+      const toggleSidebar = () => {
+        document.querySelector(DOMStrings.sidebar).classList.toggle('active');
+        document.querySelector(DOMStrings.sidebarOverlay).classList.toggle('active');
+      };
+      
       return {
         DOMStrings,
         renderProblems,
         updateProgressStats,
         updateActiveFilter,
         clearSearch,
-        getSearchInput
+        getSearchInput,
+        toggleSidebar
       };
     })();
 
@@ -1761,6 +1960,14 @@
         // Reset button
         document.querySelector(UIController.DOMStrings.resetBtn)
           .addEventListener('click', resetFilters);
+          
+        // Menu toggle button
+        document.querySelector(UIController.DOMStrings.menuToggle)
+          .addEventListener('click', UIController.toggleSidebar);
+          
+        // Sidebar overlay click
+        document.querySelector(UIController.DOMStrings.sidebarOverlay)
+          .addEventListener('click', UIController.toggleSidebar);
       };
       
       const filterProblems = () => {
@@ -1794,6 +2001,5 @@
     // Initialize the application
     document.addEventListener('DOMContentLoaded', AppController.init);
   </script>
-
 </body>
 </html>
