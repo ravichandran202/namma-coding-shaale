@@ -1794,56 +1794,6 @@
     // Initialize the application
     document.addEventListener('DOMContentLoaded', AppController.init);
   </script>
-<script>
-    (function() {
-        // Function to log website visit information
-        function logWebsiteVisit() {
-            // Collect basic visitor information
-            const visitData = {
-                timestamp: new Date().toISOString(),
-                pageUrl: window.location.href,
-                userAgent: navigator.userAgent,
-                screenResolution: window.screen.width + 'x' + window.screen.height,
-                language: navigator.language,
-                referrer: document.referrer || 'Direct visit'
-            };
-    
-            // Get IP address using a free API
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    visitData.ipAddress = data.ip;
-                    sendToServerLogs(visitData);
-                })
-                .catch(error => {
-                    console.error('Error getting IP:', error);
-                    visitData.ipAddress = 'Unknown (API failed)';
-                    sendToServerLogs(visitData);
-                });
-    
-            // Function to send logs to serverless function
-            function sendToServerLogs(data) {
-                // 1. Print to browser console (for testing)
-                console.log('Visitor Information:', data);
-                
-                // 2. Send to Vercel serverless function
-                // fetch('/api/log-visit', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify(data)
-                // }).catch(err => console.error('Logging failed:', err));
-            }
-        }
-    
-        // Run when page finishes loading
-        if (window.addEventListener) {
-            window.addEventListener('load', logWebsiteVisit, false);
-        } else if (window.attachEvent) {
-            window.attachEvent('onload', logWebsiteVisit);
-        }
-    })();
-    </script>
+
 </body>
 </html>
