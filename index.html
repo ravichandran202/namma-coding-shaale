@@ -1,2008 +1,1393 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DSA Problem Tracker</title>
+  <title>Python DSA Mastery Course - Learn with LeetCode-style Problems</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet">
   <!-- Custom CSS -->
   <style>
     :root {
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --bg: #f8fafc;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --border: #e2e8f0;
-      --row-hover: #f1f5f9;
-      --meter-background: #e2e8f0;
-      --meter-fill: #3b82f6;
-      --sidebar-width: 280px;
-      --sidebar-bg: #ffffff;
-      --sidebar-text: #1e293b;
-      --sidebar-active-bg: #f1f5f9;
-      --sidebar-hover-bg: #f8fafc;
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --primary-light: #93c5fd;
+      --secondary: #10b981;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gray-light: #e2e8f0;
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --border-radius: 12px;
+      --section-padding: 8rem 0;
+      --container-max-width: 1200px;
     }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--light);
+      color: var(--dark);
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Sidebar Styles */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    .display-font {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .text-serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .text-sans {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .text-uppercase {
+      letter-spacing: 0.1em;
+    }
+
+    /* Navigation */
+    /* Premium Navigation Styles */
+    .navbar {
+      padding: 1rem 0;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      padding: 0.75rem 0;
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: white !important;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .brand-text {
+      font-family: 'Playfair Display', serif;
+      margin: 0 0.5rem;
+    }
+
+    .brand-highlight {
+      color: var(--primary-light);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8) !important;
+      margin: 0 0.25rem;
+      padding: 0.75rem 1.25rem !important;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link:hover {
+      color: white !important;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-link.active {
+      color: white !important;
+      background: rgba(37, 99, 235, 0.15);
+    }
+
+    .nav-link.active:before {
+      content: '';
+      position: absolute;
       bottom: 0;
-      width: var(--sidebar-width);
-      background-color: var(--sidebar-bg);
-      color: var(--sidebar-text);
-      padding: 1rem;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-      z-index: 1000;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
     }
 
-    .sidebar.active {
-      transform: translateX(0);
+    /* Premium Button */
+    .btn-premium {
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      color: white !important;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
     }
 
-    .sidebar-overlay {
-      position: fixed;
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+      background: linear-gradient(135deg, var(--primary-dark), #6d28d9);
+      color: white;
+    }
+
+    /* Navbar Toggler */
+    .navbar-toggler {
+      border: none;
+      padding: 0.5rem;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .btn {
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: var(--transition);
+      font-size: 0.95rem;
+      border-width: 2px;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary);
+      border-color: var(--primary);
+      background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Container adjustments */
+    .container,
+    .container-fluid {
+      max-width: var(--container-max-width);
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      /* New background pattern */
+      /* background-image: 
+      radial-gradient(circle at 25% 70%, rgba(255,255,255,0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 30%, rgba(255,255,255,0.1) 0%, transparent 25%); */
+    }
+
+
+    /* Optional: Adjust the container for better centering */
+    .hero-section .container {
+      padding-top: 80px;
+      /* Space for navbar */
+      padding-bottom: 80px;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.03)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      background-size: cover;
+      opacity: 0.5;
+    }
+
+    .hero-title {
+      font-size: 4.5rem;
+      /* Increased from 3.5rem */
+      font-weight: 900;
+      margin-bottom: 2rem;
+      /* Increased spacing */
+      line-height: 1.1;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      /* Increased from 1.25rem */
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      /* Increased spacing */
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    .btn-hero {
+      background-color: white;
+      color: var(--primary);
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-hero:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.2));
       opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: var(--transition);
+      z-index: -1;
     }
 
-    .sidebar-overlay.active {
+    .btn-hero:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      color: var(--primary-dark);
+    }
+
+    .btn-hero:hover:after {
       opacity: 1;
-      visibility: visible;
     }
 
-    .sidebar-header {
-      padding: 1rem 0.5rem;
+    /* Section Styling */
+    .section {
+      padding: var(--section-padding);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      margin: 1.5rem auto;
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    /* Features Section */
+    .feature-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      height: 100%;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+      border-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+      width: 80px;
+      height: 80px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
       margin-bottom: 1rem;
+    }
+
+    .feature-text {
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* Highlight Cards */
+    .highlight-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .highlight-title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .highlight-title i {
+      font-size: 1.75rem;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight-item i {
+      color: var(--secondary);
+      margin-right: 1rem;
+      margin-top: 0.2rem;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .highlight-item h5 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .highlight-item p {
+      color: var(--gray);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    /* Comparison Section */
+    .comparison-section {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 4rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1.25rem;
+      text-align: left;
       border-bottom: 1px solid var(--border);
     }
 
-    .sidebar-header h3 {
+    .comparison-table th {
+      font-weight: 600;
+      background-color: var(--light);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tr:hover td {
+      background-color: rgba(147, 197, 253, 0.05);
+    }
+
+    .check-mark {
+      color: var(--secondary);
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    .x-mark {
+      color: #ef4444;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+
+    /* Pricing Section */
+    .pricing-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gray-light);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .pricing-card.featured {
+      border: 1px solid var(--primary);
+    }
+
+    .pricing-card.featured:before {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 1rem;
+      right: -2.5rem;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.25rem 2.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      transform: rotate(45deg);
+      width: 150px;
+      text-align: center;
+    }
+
+    .pricing-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+    }
+
+    .pricing-price {
+      font-size: 3rem;
       font-weight: 700;
-      margin-bottom: 0;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .pricing-period {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.75rem 0;
+      color: var(--gray);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features li i {
+      margin-right: 0.75rem;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 6rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      background-size: cover;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-subtitle {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+    }
+
+    .btn-cta {
+      background-color: white;
+      color: var(--primary);
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn-cta:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.2));
+      opacity: 0;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      color: var(--primary-dark);
+    }
+
+    .btn-cta:hover:after {
+      opacity: 1;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 5rem 0 2rem;
+      position: relative;
+    }
+
+    .footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .sidebar-menu {
+    .footer-logo i {
+      font-size: 1.25rem;
+      color: var(--primary-light);
+    }
+
+    .footer-about {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links {
       list-style: none;
       padding: 0;
-      margin: 0;
     }
 
-    .sidebar-menu li {
-      margin-bottom: 0.25rem;
+    .footer-links li {
+      margin-bottom: 0.75rem;
     }
 
-    .sidebar-menu a {
-      display: flex;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      color: var(--sidebar-text);
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.2s;
+      transition: var(--transition);
+      font-size: 0.95rem;
+      display: inline-block;
     }
 
-    .sidebar-menu a:hover {
-      background-color: var(--sidebar-hover-bg);
-      color: var(--primary);
-    }
-
-    .sidebar-menu a.active {
-      background-color: var(--sidebar-active-bg);
-      color: var(--primary);
-      font-weight: 500;
-    }
-
-    .sidebar-menu a i {
-      margin-right: 0.75rem;
-      width: 20px;
-      text-align: center;
-    }
-
-    .sidebar-footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-light);
-    }
-
-    /* Main Content Styles */
-    .main-content {
-      padding: 1rem;
-      transition: transform 0.3s ease;
-    }
-
-    /* Mobile Menu Toggle Button */
-    .menu-toggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1100;
-      background: var(--primary);
+    .footer-links a:hover {
       color: white;
-      border: none;
+      transform: translateX(5px);
+    }
+
+    .footer-heading {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: white;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-heading:after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
       width: 40px;
-      height: 40px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .footer-newsletter p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-input {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      width: 100%;
+      margin-bottom: 1rem;
+      transition: var(--transition);
+    }
+
+    .footer-input:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .footer-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-btn {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
-    .menu-toggle:hover {
-      background: var(--primary-hover);
-    }
-
-    /* Status Styles */
-    .status {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      vertical-align: middle;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .status-solved {
-      background-color: var(--success);
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
-    }
-
-    .status-attempted {
-      background-color: var(--warning);
-      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
-    }
-
-    .status-unsolved {
-      background-color: #cbd5e1;
-      box-shadow: 0 0 0 2px rgba(203, 213, 225, 0.2);
-    }
-
-    .problem-title {
-      font-weight: 500;
-      color: var(--text);
-      transition: color 0.2s;
-    }
-
-    .problem-title:hover {
-      color: var(--primary);
-    }
-
-    .difficulty {
-      font-weight: 600;
-      font-size: 0.85rem;
-      padding: 5px 10px;
-      border-radius: 20px;
-      display: inline-block;
-      min-width: 70px;
-      text-align: center;
-    }
-
-    .easy {
-      background-color: rgba(16, 185, 129, 0.1);
-      color: var(--success);
-    }
-
-    .medium {
-      background-color: rgba(245, 158, 11, 0.1);
-      color: var(--warning);
-    }
-
-    .hard {
-      background-color: rgba(239, 68, 68, 0.1);
-      color: var(--danger);
-    }
-
-    .problems-table {
-      background-color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .problems-table thead th {
-      background-color: #f1f5f9;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-size: 0.75rem;
-      color: var(--text-light);
-      padding: 0.75rem 1rem;
-      white-space: nowrap;
-    }
-
-    .problems-table tbody tr:hover {
-      background-color: var(--row-hover);
-    }
-
-    .problems-table td {
-      padding: 1rem;
-      vertical-align: middle;
-      border-top: 1px solid var(--border);
-      white-space: nowrap;
-    }
-
-    .filter-scroll {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 10px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .section-header {
-      background-color: white;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      margin: 1.5rem 0 0.5rem;
-      cursor: pointer;
-      border-left: 4px solid var(--primary);
-      transition: all 0.2s;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .section-header:hover {
-      background-color: #f8fafc;
-    }
-
-    .section-header h3 {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .section-header .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.35em 0.65em;
-    }
-
-    .section-content {
-      padding: 0;
-      display: none; /* Collapsed by default */
-    }
-
-    /* Progress Overview Section */
-    .progress-overview {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .progress-overview h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      color: var(--text);
-    }
-
-    .progress-item {
-      margin-bottom: 1.5rem;
-    }
-
-    .progress-title {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .progress-count {
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .progress-bar-container {
-      height: 8px;
-      background-color: var(--meter-background);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-
-    .progress-total .progress-bar-fill {
+    .social-links a:hover {
       background-color: var(--primary);
+      transform: translateY(-3px);
     }
 
-    .progress-easy .progress-bar-fill {
-      background-color: var(--success);
-    }
-
-    .progress-medium .progress-bar-fill {
-      background-color: var(--warning);
-    }
-
-    .progress-hard .progress-bar-fill {
-      background-color: var(--danger);
-    }
-
-    /* Digital Meter UI */
-    .digital-meter {
-      background-color: #f1f5f9;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+    .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2rem;
+      margin-top: 3rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
       text-align: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
-    .digital-meter-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-light);
-      margin-bottom: 0.5rem;
+    #heading {
+      font-size: 1.4rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .digital-meter-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 0.5rem;
-      line-height: 1;
+    /* Responsive adjustments */
+    @media (max-width: 1199px) {
+      :root {
+        --section-padding: 6rem 0;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+      }
     }
 
-    .digital-meter-total {
-      font-size: 1rem;
-      color: var(--text-light);
-    }
-
-    /* Notes Section */
-    .notes-section {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    }
-
-    .notes-section h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: var(--text);
-    }
-
-    .notes-content {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      line-height: 1.6;
-    }
-
-    /* Mobile optimizations */
-    @media (max-width: 768px) {
-      body {
-        padding: 0rem;
-        font-size: 0.9rem;
+    @media (max-width: 991px) {
+      :root {
+        --section-padding: 5rem 0;
       }
 
-      .main-content {
-        padding: 0rem;
+      .hero-title {
+        font-size: 2.5rem;
       }
 
-      .search-container {
-        flex-direction: column;
+      .hero-subtitle {
+        font-size: 1.15rem;
       }
 
-      .problems-table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        border-radius: 8px;
+      .section-title {
+        font-size: 2.25rem;
       }
 
-      .problems-table {
-        min-width: 800px;
+      .comparison-section,
+      .instructor-section,
+      .faq-section {
+        padding: 3rem;
       }
 
-      .problems-table td, 
-      .problems-table th {
-        padding: 0.75rem;
-      }
-
-      .section-header h3 {
-        font-size: 0.9rem;
-      }
-
-      .digital-meter {
+      .navbar-collapse {
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         padding: 1rem;
+        border-radius: 12px;
+        margin-top: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
 
-      .digital-meter-value {
+      .nav-link {
+        margin: 0.25rem 0;
+        padding: 0.75rem !important;
+      }
+
+      .btn-premium {
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --section-padding: 4rem 0;
+      }
+
+      .navbar-brand {
+        font-size: 1rem;
+      }
+
+      #heading {
+        font-size: 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .hero-section {
+        padding: 6rem 0 4rem;
+      }
+
+      .hero-title {
+        padding-bottom: 2rem;
+        font-size: 2.25rem;
+        line-height: 1.3;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .section-title:after {
+        margin: 1.25rem auto;
+      }
+
+      .section-subtitle {
+        margin-bottom: 3rem;
+      }
+
+      .comparison-section,
+      .instructor-section,
+      .faq-section {
+        padding: 2rem;
+      }
+
+      .btn-hero,
+      .btn-cta {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+      }
+
+      .feature-card,
+      .highlight-card {
+        padding: 2rem;
+      }
+
+      .pricing-card {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .cta-title {
         font-size: 2rem;
       }
 
-      .progress-overview {
-        padding: 1rem;
+      .footer {
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-col {
+        margin-bottom: 2.5rem;
       }
     }
 
-    /* Desktop styles */
-    @media (min-width: 992px) {
-      .sidebar {
-        transform: translateX(0);
+    @media (max-width: 575px) {
+      :root {
+        --section-padding: 3.5rem 0;
       }
 
-      .menu-toggle {
-        display: none;
+      .hero-title {
+        font-size: 2rem;
       }
 
-      .sidebar-overlay {
-        display: none;
+      .section-title {
+        font-size: 1.75rem;
       }
 
-      .main-content {
-        margin-left: var(--sidebar-width);
+      .btn {
+        padding: 0.625rem 1.5rem;
       }
     }
 
-    /* Premium look enhancements */
-    .header-container {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .header-title {
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.5rem;
+    .animate {
+      animation: fadeInUp 0.6s ease-out forwards;
     }
 
-    .header-subtitle {
-      font-weight: 400;
-      color: var(--text-light);
+    .delay-1 {
+      animation-delay: 0.2s;
     }
 
-    .btn-sm {
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
+    .delay-2 {
+      animation-delay: 0.4s;
     }
 
-    .search-input {
-      font-size: 0.9rem;
-      padding: 0.65rem 1rem;
+    .delay-3 {
+      animation-delay: 0.6s;
     }
+
+    /* Scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    /* Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }); */
   </style>
 </head>
+
 <body>
-  <!-- Sidebar Overlay (for mobile) -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h3><i class="fas fa-code me-1"></i>  N C S <i class="fas fa-code me-1"></i></h3>
-    </div>
-    <ul class="sidebar-menu">
-      <!-- <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li> -->
-      <li><a href="./home.html"><i class="fas fa-home"></i> Sample Home</a></li>
-      <li><a href="#" class="active"><i class="fas fa-list-check" ></i> Problem List</a></li>
-      <!-- <li><a href="#"><i class="fas fa-chart-line"></i> Progress</a></li>
-      <li><a href="#"><i class="fas fa-book"></i> Study Plan</a></li>
-      <li><a href="#"><i class="fas fa-clipboard"></i> Notes</a></li>
-      <li><a href="#"><i class="fas fa-star"></i> Favorites</a></li>
-      <li><a href="#"><i class="fas fa-trophy"></i> Challenges</a></li>
-      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> -->
-      <li><a href="./notes.html"><i class="fas fa-book"></i> Sample Notes</a></li>
-      <li><a href="./code-editor.html"><i class="fas fa-code"></i> Code Editor</a></li>
-    </ul>
-    <div class="sidebar-footer">
-      <p>DSA Tracker v1.0</p>
-    </div>
-  </div>
-
-  <!-- Mobile Menu Toggle Button -->
-  <button class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
-
-  <!-- Main Content -->
-  <div class="main-content" id="mainContent">
-    <div class="container-fluid">
-
-      <!-- Digital Meter UI for Total Problems Solved -->
-      <div class="digital-meter">
-        <div class="digital-meter-title">Total Problems Solved</div>
-        <div class="digital-meter-value" id="total-problems-count">0</div>
-        <div class="digital-meter-total">out of <span id="total-problems-total">100</span> problems</div>
+  <!-- Navigation -->
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-code me-2"></i>
+        <span class="brand-text">ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>
+        <i class="fas fa-code ms-2"></i>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="fas fa-home me-1"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./problem-list.html">
+              <i class="fas fa-list-ol me-1"></i> Problem List
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./notes.html">
+              <i class="fas fa-book me-1"></i> Notes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./code-editor.html">
+              <i class="fas fa-laptop-code me-1"></i> Code Editor
+            </a>
+          </li>
+          <li class="nav-item ms-lg-3">
+            <a class="btn btn-premium" href="#">
+              <i class="fas fa-gem me-1"></i> Enroll Now
+            </a>
+          </li>
+        </ul>
       </div>
+    </div>
+  </nav>
 
-      <!-- Progress Overview Section -->
-      <div class="progress-overview">
-        <h3>Progress by Difficulty</h3>
-        
-        <div class="row">
-          <div class="col-md-4">
-            <div class="progress-item progress-easy">
-              <div class="progress-title">
-                <span>Easy</span>
-                <span class="progress-count"><span id="easy-count">0</span>/<span id="easy-total">40</span></span>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="hero-title animate">Master Coding & Python</h1>
+      <p class="hero-subtitle animate delay-1">Learn by solving 100+ LeetCode-style problems with expert guidance and
+        real-world interview experience. Build confidence and land your dream tech job.</p>
+      <div class="animate delay-2">
+        <a href="./index.html" class="btn btn-hero">Start Learning <i class="fas fa-arrow-right ms-2"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Course Highlights -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2 class="section-title">Why Choose Our Course</h2>
+      <p class="section-subtitle">A comprehensive learning experience designed to take you from beginner to
+        interview-ready</p>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="highlight-card animate">
+            <h3 class="highlight-title"><i class="fas fa-check-circle"></i> What You'll Learn</h3>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>100+ Carefully Selected Problems</h5>
+                <p>From basic to advanced, covering all essential DSA topics with increasing difficulty</p>
               </div>
-              <div class="progress-bar-container">
-                <div id="easy-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Python Programming Mastery</h5>
+                <p>Write efficient, clean Python code that impresses in technical interviews</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Problem Solving Patterns</h5>
+                <p>Recognize and apply common problem-solving techniques to new challenges</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Time & Space Complexity</h5>
+                <p>Analyze and optimize your solutions like a senior engineer</p>
               </div>
             </div>
           </div>
-          
-          <div class="col-md-4">
-            <div class="progress-item progress-medium">
-              <div class="progress-title">
-                <span>Medium</span>
-                <span class="progress-count"><span id="medium-count">0</span>/<span id="medium-total">40</span></span>
-              </div>
-              <div class="progress-bar-container">
-                <div id="medium-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="highlight-card animate delay-1">
+            <h3 class="highlight-title"><i class="fas fa-star"></i> Course Features</h3>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Track Your Progress</h5>
+                <p>Monitor your solved problems and see your improvement over time</p>
               </div>
             </div>
-          </div>
-          
-          <div class="col-md-4">
-            <div class="progress-item progress-hard">
-              <div class="progress-title">
-                <span>Hard</span>
-                <span class="progress-count"><span id="hard-count">0</span>/<span id="hard-total">20</span></span>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Detailed Solutions</h5>
+                <p>Step-by-step explanations with multiple approaches for each problem</p>
               </div>
-              <div class="progress-bar-container">
-                <div id="hard-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Video Explanations</h5>
+                <p>Watch walkthroughs for complex problems with visualizations</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-check"></i>
+              <div>
+                <h5>Interview Tips</h5>
+                <p>Get insider advice on how to approach technical interviews</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Search and Filters -->
-      <div class="search-container d-flex gap-2 mb-3">
-        <input type="text" class="form-control search-input" id="searchInput" placeholder="Search problems...">
-        <button class="btn btn-primary btn-sm d-flex align-items-center gap-2" id="resetBtn">
-          <i class="fas fa-sync-alt"></i> Reset
-        </button>
-      </div>
-
-      <div class="filter-scroll mb-3">
-        <div class="d-flex gap-2 filter-buttons">
-          <button class="btn btn-sm btn-primary active" data-filter="all">All</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="easy">Easy</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="medium">Medium</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="hard">Hard</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="solved">Solved</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="attempted">Attempted</button>
-          <button class="btn btn-sm btn-outline-secondary" data-filter="unsolved">Unsolved</button>
+  <!-- Comparison Section -->
+  <section class="section">
+    <div class="container">
+      <div class="comparison-section animate">
+        <h2 class="section-title">Why Choose Our Course?</h2>
+        <p class="section-subtitle">See how we compare to other learning platforms</p>
+        <div class="table-responsive">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Features</th>
+                <th>Other Courses</th>
+                <th>Our Course</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LeetCode-style Problems</td>
+                <td><span class="x-mark">✗</span> Limited</td>
+                <td><span class="check-mark">✓</span> 100+ Problems</td>
+              </tr>
+              <tr>
+                <td>Progress Tracking</td>
+                <td><span class="x-mark">✗</span> Basic</td>
+                <td><span class="check-mark">✓</span> Detailed Analytics</td>
+              </tr>
+              <tr>
+                <td>Video Explanations</td>
+                <td><span class="x-mark">✗</span> Few</td>
+                <td><span class="check-mark">✓</span> For All Problems</td>
+              </tr>
+              <tr>
+                <td>Interview Preparation</td>
+                <td><span class="x-mark">✗</span> Generic</td>
+                <td><span class="check-mark">✓</span> Real-world Focused</td>
+              </tr>
+              <tr>
+                <td>Community Support</td>
+                <td><span class="x-mark">✗</span> None</td>
+                <td><span class="check-mark">✓</span> Active Discussion</td>
+              </tr>
+              <tr>
+                <td>Code Editor</td>
+                <td><span class="x-mark">✗</span> External</td>
+                <td><span class="check-mark">✓</span> Built-in Editor</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Problem Sections -->
-      <div id="sections-container">
-        <!-- Sections will be loaded here dynamically -->
+  <!-- Pricing Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2 class="section-title">Choose Your Plan</h2>
+      <p class="section-subtitle">Flexible options to fit your learning needs and budget</p>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="pricing-card animate">
+            <h3 class="pricing-title">Basic</h3>
+            <div class="pricing-price">$19<span class="pricing-period">/month</span></div>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> Access to all problems</li>
+              <li><i class="fas fa-check"></i> Basic solutions</li>
+              <li><i class="fas fa-check"></i> Progress tracking</li>
+              <li><i class="fas fa-check"></i> Community support</li>
+            </ul>
+            <a href="#" class="btn btn-outline-primary w-100">Get Started</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="pricing-card featured animate delay-1">
+            <div class="featured-badge">Most Popular</div>
+            <h3 class="pricing-title">Premium</h3>
+            <div class="pricing-price">$49<span class="pricing-period">/month</span></div>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> All Basic features</li>
+              <li><i class="fas fa-check"></i> Video explanations</li>
+              <li><i class="fas fa-check"></i> Multiple solutions</li>
+              <li><i class="fas fa-check"></i> Interview tips</li>
+              <li><i class="fas fa-check"></i> Priority support</li>
+            </ul>
+            <a href="#" class="btn btn-primary w-100">Get Started</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="pricing-card animate delay-2">
+            <h3 class="pricing-title">Lifetime</h3>
+            <div class="pricing-price">$199<span class="pricing-period">one-time</span></div>
+            <ul class="pricing-features">
+              <li><i class="fas fa-check"></i> All Premium features</li>
+              <li><i class="fas fa-check"></i> Lifetime access</li>
+              <li><i class="fas fa-check"></i> Future updates</li>
+              <li><i class="fas fa-check"></i> 1-on-1 coaching</li>
+              <li><i class="fas fa-check"></i> Certificate</li>
+            </ul>
+            <a href="#" class="btn btn-outline-primary w-100">Get Started</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container text-center">
+      <h2 class="cta-title animate">Ready to Master DSA with Python?</h2>
+      <p class="cta-subtitle animate delay-1">Join hundreds of students who have improved their coding skills and landed
+        their dream jobs</p>
+      <div class="animate delay-2">
+        <a href="./index.html" class="btn btn-cta">Get Started Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <div class="footer-logo">
+            <i class="fas fa-laptop-code"></i>
+            <span>ನಮ್ಮ Coding ಶಾಲೆ</span>
+          </div>
+          <p class="footer-about">Master Python and Data Structures through practical problem-solving and interview
+            preparation.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="./index.html">Problem List</a></li>
+            <li><a href="./notes.html">Notes</a></li>
+            <li><a href="./code-editor.html">Code Editor</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+          <h5 class="footer-heading">Resources</h5>
+          <ul class="footer-links">
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Interview Tips</a></li>
+            <li><a href="#">Community</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h5 class="footer-heading">Newsletter</h5>
+          <p class="footer-newsletter">Subscribe to get updates on new problems and coding tips.</p>
+          <form>
+            <input type="email" class="footer-input" placeholder="Your email">
+            <button class="btn btn-primary footer-btn" type="button">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 ನಮ್ಮ Coding ಶಾಲೆ. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Problem Data and Application Script -->
   <script>
-    // Problem data module
-    const ProblemData = (() => {
-      const sections = [
-    {
-      id: "basic-problems",
-      title: "1. Basic Python Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "hello-world",
-          title: "Print 'Hello, World!'",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["print", "basic"]
-        },
-        {
-          id: "add-numbers",
-          title: "Add Two Numbers",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["arithmetic", "input"]
-        },
-        {
-          id: "swap-vars",
-          title: "Swap Two Variables",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["variables"]
-        },
-        {
-          id: "convert-celsius",
-          title: "Convert Celsius to Fahrenheit",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["conversion"]
-        },
-        {
-          id: "quadratic-roots",
-          title: "Find Quadratic Roots",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["math", "quadratic"]
-        },
-        {
-          id: "km-to-miles",
-          title: "Convert Kilometers to Miles",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["conversion"]
-        },
-        {
-          id: "check-even",
-          title: "Check Even or Odd",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["modulus"]
-        },
-        {
-          id: "leap-year",
-          title: "Check Leap Year",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["conditions"]
-        },
-        {
-          id: "largest-three",
-          title: "Find Largest Among Three Numbers",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["comparison"]
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.animate');
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+
+        if (elementPosition < screenPosition) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
         }
-      ]
-    },
-    {
-      id: "string-problems",
-      title: "2. String Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "reverse-string",
-          title: "Reverse a String",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "reverse"]
-        },
-        {
-          id: "palindrome",
-          title: "Check Palindrome",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "palindrome"]
-        },
-        {
-          id: "count-vowels",
-          title: "Count Vowels in String",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "count"]
-        },
-        {
-          id: "anagram",
-          title: "Check if Two Strings are Anagrams",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "anagram"]
-        },
-        {
-          id: "remove-duplicates",
-          title: "Remove Duplicate Characters",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "duplicates"]
-        },
-        {
-          id: "word-count",
-          title: "Count Words in String",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "count"]
-        },
-        {
-          id: "first-char-capital",
-          title: "Capitalize First Character",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "capitalize"]
-        },
-        {
-          id: "string-rotation",
-          title: "Check String Rotation",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "rotation"]
-        },
-        {
-          id: "longest-substring",
-          title: "Longest Substring Without Repeating",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "substring"]
-        },
-        {
-          id: "string-compression",
-          title: "String Compression",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["string", "compression"]
-        }
-      ]
-    },
-    {
-      id: "list-problems",
-      title: "3. List Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "sum-list",
-          title: "Sum of List Elements",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "sum"]
-        },
-        {
-          id: "largest-list",
-          title: "Find Largest in List",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "max"]
-        },
-        {
-          id: "rotate-list",
-          title: "Rotate List by N Positions",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "rotation"]
-        },
-        {
-          id: "remove-duplicates-list",
-          title: "Remove Duplicates from List",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "duplicates"]
-        },
-        {
-          id: "list-comprehension",
-          title: "List Comprehension Exercises",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "comprehension"]
-        },
-        {
-          id: "merge-sorted",
-          title: "Merge Two Sorted Lists",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "merge"]
-        },
-        {
-          id: "flatten-list",
-          title: "Flatten Nested List",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "recursion"]
-        },
-        {
-          id: "list-chunks",
-          title: "Split List into Chunks",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "chunks"]
-        },
-        {
-          id: "second-largest",
-          title: "Find Second Largest Number",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "sorting"]
-        },
-        {
-          id: "common-elements",
-          title: "Find Common Elements in Lists",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["list", "intersection"]
-        }
-      ]
-    },
-    {
-      id: "dictionary-problems",
-      title: "4. Dictionary Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "merge-dicts",
-          title: "Merge Two Dictionaries",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "merge"]
-        },
-        {
-          id: "key-exists",
-          title: "Check if Key Exists",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "key"]
-        },
-        {
-          id: "sum-values",
-          title: "Sum All Values in Dictionary",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "sum"]
-        },
-        {
-          id: "word-frequency",
-          title: "Word Frequency Counter",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "frequency"]
-        },
-        {
-          id: "sort-dict",
-          title: "Sort Dictionary by Value",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "sort"]
-        },
-        {
-          id: "max-value",
-          title: "Find Key with Maximum Value",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "max"]
-        },
-        {
-          id: "nested-dict",
-          title: "Access Nested Dictionary Items",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "nested"]
-        },
-        {
-          id: "dict-comprehension",
-          title: "Dictionary Comprehension",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "comprehension"]
-        },
-        {
-          id: "invert-dict",
-          title: "Invert a Dictionary",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "invert"]
-        },
-        {
-          id: "two-sum",
-          title: "Two Sum Problem",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dictionary", "hash"]
-        }
-      ]
-    },
-    {
-      id: "function-problems",
-      title: "5. Function Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "factorial",
-          title: "Factorial Using Recursion",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "recursion"]
-        },
-        {
-          id: "fibonacci",
-          title: "Fibonacci Sequence",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "recursion"]
-        },
-        {
-          id: "prime-check",
-          title: "Check Prime Number",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "prime"]
-        },
-        {
-          id: "gcd",
-          title: "Find GCD of Two Numbers",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "gcd"]
-        },
-        {
-          id: "lcm",
-          title: "Find LCM of Two Numbers",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "lcm"]
-        },
-        {
-          id: "power-function",
-          title: "Implement Power Function",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "power"]
-        },
-        {
-          id: "decorator-example",
-          title: "Create a Timer Decorator",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "decorator"]
-        },
-        {
-          id: "closure-example",
-          title: "Create a Closure Function",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "closure"]
-        },
-        {
-          id: "memoization",
-          title: "Implement Memoization",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "memoization"]
-        },
-        {
-          id: "generator-fib",
-          title: "Fibonacci with Generator",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["function", "generator"]
-        }
-      ]
-    },
-    {
-      id: "file-io-problems",
-      title: "6. File I/O Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "read-file",
-          title: "Read File Contents",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "read"]
-        },
-        {
-          id: "write-file",
-          title: "Write to File",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "write"]
-        },
-        {
-          id: "copy-file",
-          title: "Copy File Contents",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "copy"]
-        },
-        {
-          id: "word-count-file",
-          title: "Word Count in File",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "count"]
-        },
-        {
-          id: "merge-files",
-          title: "Merge Two Files",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "merge"]
-        },
-        {
-          id: "csv-read",
-          title: "Read CSV File",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "csv"]
-        },
-        {
-          id: "json-read",
-          title: "Read JSON File",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "json"]
-        },
-        {
-          id: "log-analysis",
-          title: "Analyze Log File",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "log"]
-        },
-        {
-          id: "file-encryption",
-          title: "Simple File Encryption",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "encryption"]
-        },
-        {
-          id: "directory-listing",
-          title: "List Files in Directory",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["file", "directory"]
-        }
-      ]
-    },
-    {
-      id: "oop-problems",
-      title: "7. OOP Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "class-circle",
-          title: "Circle Class",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["class", "oop"]
-        },
-        {
-          id: "bank-account",
-          title: "Bank Account Class",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["class", "oop"]
-        },
-        {
-          id: "inheritance-shapes",
-          title: "Shape Inheritance",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["inheritance", "oop"]
-        },
-        {
-          id: "polymorphism-animals",
-          title: "Animal Polymorphism",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["polymorphism", "oop"]
-        },
-        {
-          id: "magic-methods",
-          title: "Implement Magic Methods",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["magic-methods", "oop"]
-        },
-        {
-          id: "class-student",
-          title: "Student Management System",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["class", "oop"]
-        },
-        {
-          id: "singleton-pattern",
-          title: "Implement Singleton Pattern",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["design-pattern", "oop"]
-        },
-        {
-          id: "decorator-class",
-          title: "Class Decorator",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["decorator", "oop"]
-        },
-        {
-          id: "property-decorator",
-          title: "Use Property Decorator",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["property", "oop"]
-        },
-        {
-          id: "abstract-class",
-          title: "Create Abstract Class",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["abstract", "oop"]
-        }
-      ]
-    },
-    {
-      id: "algorithm-problems",
-      title: "8. Algorithm Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "bubble-sort",
-          title: "Implement Bubble Sort",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["sorting", "algorithm"]
-        },
-        {
-          id: "binary-search",
-          title: "Implement Binary Search",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["search", "algorithm"]
-        },
-        {
-          id: "linear-search",
-          title: "Implement Linear Search",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["search", "algorithm"]
-        },
-        {
-          id: "merge-sort",
-          title: "Implement Merge Sort",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["sorting", "algorithm"]
-        },
-        {
-          id: "quick-sort",
-          title: "Implement Quick Sort",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["sorting", "algorithm"]
-        },
-        {
-          id: "linked-list",
-          title: "Implement Linked List",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["data-structure", "algorithm"]
-        },
-        {
-          id: "binary-tree",
-          title: "Implement Binary Tree",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["data-structure", "algorithm"]
-        },
-        {
-          id: "graph-traversal",
-          title: "Graph Traversal",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["graph", "algorithm"]
-        },
-        {
-          id: "dijkstra",
-          title: "Dijkstra's Algorithm",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["graph", "algorithm"]
-        },
-        {
-          id: "knapsack",
-          title: "0/1 Knapsack Problem",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["dynamic-programming", "algorithm"]
-        }
-      ]
-    },
-    {
-      id: "datetime-problems",
-      title: "9. Date/Time Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "current-date",
-          title: "Get Current Date/Time",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "date-diff",
-          title: "Calculate Date Difference",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "format-date",
-          title: "Format Date String",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "add-days",
-          title: "Add Days to Date",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "day-of-week",
-          title: "Find Day of Week",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "timezone-convert",
-          title: "Convert Between Timezones",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "age-calculator",
-          title: "Age Calculator",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "business-days",
-          title: "Count Business Days",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "leap-year-check",
-          title: "Check Leap Year",
-          difficulty: "easy",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        },
-        {
-          id: "time-delta",
-          title: "Calculate Time Delta",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["datetime"]
-        }
-      ]
-    },
-    {
-      id: "regex-problems",
-      title: "10. Regular Expression Problems",
-      type: "problems",
-      problems: [
-        {
-          id: "email-validation",
-          title: "Validate Email Address",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "phone-validation",
-          title: "Validate Phone Number",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "password-strength",
-          title: "Check Password Strength",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "extract-numbers",
-          title: "Extract Numbers from String",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "find-urls",
-          title: "Find URLs in Text",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "replace-words",
-          title: "Replace Words in String",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "split-string",
-          title: "Split String by Multiple Delimiters",
-          difficulty: "medium",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "html-tags",
-          title: "Remove HTML Tags",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "date-extraction",
-          title: "Extract Dates from Text",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        },
-        {
-          id: "credit-card",
-          title: "Validate Credit Card Number",
-          difficulty: "hard",
-          status: "unsolved",
-          solution: "#",
-          video: "#",
-          tags: ["regex"]
-        }
-      ]
+      });
     }
-  ];
 
-        
-      const getAllProblems = () => {
-        return sections.flatMap(section => section.type === "problems" ? section.problems : []);
-      };
-      
-      const getFilteredProblems = (filter, search) => {
-        let filtered = getAllProblems();
-        
-        if (search) {
-          const searchTerm = search.toLowerCase();
-          filtered = filtered.filter(problem => 
-            problem.title.toLowerCase().includes(searchTerm) ||
-            problem.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-          );
-        }
-        
-        if (filter !== 'all') {
-          if (['solved', 'attempted', 'unsolved'].includes(filter)) {
-            filtered = filtered.filter(problem => problem.status === filter);
-          } else {
-            filtered = filtered.filter(problem => problem.difficulty === filter);
-          }
-        }
-        
-        return filtered;
-      };
-      
-      const updateProblemStatus = (problemId, newStatus) => {
-        for (const section of sections) {
-          if (section.type === "problems") {
-            const problem = section.problems.find(p => p.id === problemId);
-            if (problem) {
-              problem.status = newStatus;
-              return true;
-            }
-          }
-        }
-        return false;
-      };
-      
-      const getProgressStats = () => {
-        const allProblems = getAllProblems();
-        const totalProblems = allProblems.length;
-        const solvedProblems = allProblems.filter(p => p.status === 'solved').length;
-        
-        const easyProblems = allProblems.filter(p => p.difficulty === 'easy');
-        const mediumProblems = allProblems.filter(p => p.difficulty === 'medium');
-        const hardProblems = allProblems.filter(p => p.difficulty === 'hard');
-        
-        return {
-          total: {
-            count: solvedProblems,
-            total: totalProblems,
-            percent: Math.round((solvedProblems / totalProblems) * 100) || 0
-          },
-          easy: {
-            count: easyProblems.filter(p => p.status === 'solved').length,
-            total: easyProblems.length,
-            percent: Math.round((easyProblems.filter(p => p.status === 'solved').length / easyProblems.length) * 100) || 0
-          },
-          medium: {
-            count: mediumProblems.filter(p => p.status === 'solved').length,
-            total: mediumProblems.length,
-            percent: Math.round((mediumProblems.filter(p => p.status === 'solved').length / mediumProblems.length) * 100) || 0
-          },
-          hard: {
-            count: hardProblems.filter(p => p.status === 'solved').length,
-            total: hardProblems.length,
-            percent: Math.round((hardProblems.filter(p => p.status === 'solved').length / hardProblems.length) * 100) || 0
-          }
-        };
-      };
-      
-      return {
-        sections,
-        getAllProblems,
-        getFilteredProblems,
-        updateProblemStatus,
-        getProgressStats
-      };
-    })();
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', function () {
+      // Set initial state for animated elements
+      document.querySelectorAll('.animate').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      });
 
-    // UI Controller module
-    const UIController = (() => {
-      const DOMStrings = {
-        problemList: '#problemList',
-        searchInput: '#searchInput',
-        filterButtons: '.filter-buttons button',
-        resetBtn: '#resetBtn',
-        sectionsContainer: '#sections-container',
-        progressElements: {
-          total: {
-            count: '#total-problems-count',
-            total: '#total-problems-total'
-          },
-          easy: {
-            count: '#easy-count',
-            total: '#easy-total',
-            bar: '#easy-progress-bar'
-          },
-          medium: {
-            count: '#medium-count',
-            total: '#medium-total',
-            bar: '#medium-progress-bar'
-          },
-          hard: {
-            count: '#hard-count',
-            total: '#hard-total',
-            bar: '#hard-progress-bar'
-          }
-        },
-        sidebar: '#sidebar',
-        mainContent: '#mainContent',
-        menuToggle: '#menuToggle',
-        sidebarOverlay: '#sidebarOverlay'
-      };
-      
-      const renderProblems = (problems) => {
-        const container = document.querySelector(DOMStrings.sectionsContainer);
-        container.innerHTML = '';
-        
-        // Group problems by their sections
-        const problemsBySection = {};
-        problems.forEach(problem => {
-          const section = ProblemData.sections.find(s => 
-            s.type === "problems" && s.problems.some(p => p.id === problem.id)
-          );
-          if (section) {
-            if (!problemsBySection[section.id]) {
-              problemsBySection[section.id] = {
-                section: section,
-                problems: []
-              };
-            }
-            problemsBySection[section.id].problems.push(problem);
-          }
-        });
-        
-        // Render each section with its problems
-        for (const sectionId in problemsBySection) {
-          const { section, problems } = problemsBySection[sectionId];
-          
-          const sectionElement = document.createElement('div');
-          sectionElement.className = 'section mb-4';
-          
-          // Section header
-          const header = document.createElement('div');
-          header.className = 'section-header';
-          header.innerHTML = `
-            <h3>
-              ${section.title}
-              <span class="badge bg-primary rounded-pill">${problems.length} problems</span>
-            </h3>
-          `;
-          
-          // Section content
-          const content = document.createElement('div');
-          content.className = 'section-content';
-          content.style.display = 'none'; // Collapsed by default
-          
-          // Problems table wrapper for horizontal scrolling
-          const tableWrapper = document.createElement('div');
-          tableWrapper.className = 'problems-table-wrapper';
-          
-          // Problems table
-          const table = document.createElement('div');
-          table.className = 'problems-table shadow-sm';
-          table.innerHTML = `
-            <table class="table table-hover mb-0">
-              <thead>
-                <tr>
-                  <th width="50">#</th>
-                  <th width="80">Status</th>
-                  <th>Problem</th>
-                  <th width="120">Difficulty</th>
-                  <th width="120">Solution</th>
-                  <th width="120">Video</th>
-                  <th width="120">Solve</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${problems.map((problem, index) => `
-                  <tr data-problem-id="${problem.id}">
-                    <td>${index + 1}</td>
-                    <td>
-                      <span class="status status-${problem.status}" 
-                            title="${problem.status.charAt(0).toUpperCase() + problem.status.slice(1)}"
-                            aria-label="Status: ${problem.status}"
-                            data-problem-id="${problem.id}"></span>
-                    </td>
-                    <td>
-                      <div class="problem-title">${problem.title}</div>
-                      <div class="text-muted small mt-1">
-                        ${problem.tags.join(', ')}
-                      </div>
-                    </td>
-                    <td>
-                      <span class="difficulty ${problem.difficulty}">
-                        ${problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1)}
-                      </span>
-                    </td>
-                    <td>
-                      <a href="${problem.solution}" target="_blank" class="text-decoration-none text-primary">
-                        <i class="fas fa-code me-1"></i> Solution
-                      </a>
-                    </td>
-                    <td>
-                      <a href="${problem.video}" target="_blank" class="text-decoration-none text-primary">
-                        <i class="fas fa-video me-1"></i> Video
-                      </a>
-                    </td>
-                    <td>
-                      <a href="problem.html?id=${problem.id}" class="btn btn-success btn-sm">
-                        <i class="fas fa-terminal me-1"></i> Solve
-                      </a>
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          `;
-          
-          tableWrapper.appendChild(table);
-          content.appendChild(tableWrapper);
-          sectionElement.appendChild(header);
-          sectionElement.appendChild(content);
-          container.appendChild(sectionElement);
-          
-          // Add click event to toggle section content
-          header.addEventListener('click', () => {
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
-          });
-        }
+      // Run once on load
+      animateOnScroll();
+    });
 
-        // Add notes sections
-        ProblemData.sections.filter(section => section.type === "notes").forEach(section => {
-          const notesElement = document.createElement('div');
-          notesElement.className = 'notes-section mb-4';
-          notesElement.innerHTML = `
-            <h4><i class="fas fa-clipboard me-2"></i>${section.title}</h4>
-            <div class="notes-content">
-              ${section.content || ''}
-            </div>
-          `;
-          container.appendChild(notesElement);
-        });
-
-        // Add event listeners for status changes
-        document.querySelectorAll('.status').forEach(statusElement => {
-          statusElement.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const problemId = statusElement.dataset.problemId;
-            const currentStatus = statusElement.classList.contains('status-solved') ? 'solved' :
-                                 statusElement.classList.contains('status-attempted') ? 'attempted' : 'unsolved';
-            
-            // Cycle through statuses: unsolved -> attempted -> solved -> unsolved
-            let newStatus;
-            if (currentStatus === 'unsolved') {
-              newStatus = 'attempted';
-            } else if (currentStatus === 'attempted') {
-              newStatus = 'solved';
-            } else {
-              newStatus = 'unsolved';
-            }
-            
-            // Update the problem status in the data model
-            if (ProblemData.updateProblemStatus(problemId, newStatus)) {
-              // Update the UI
-              statusElement.className = 'status';
-              statusElement.classList.add(`status-${newStatus}`);
-              statusElement.setAttribute('title', newStatus.charAt(0).toUpperCase() + newStatus.slice(1));
-              statusElement.setAttribute('aria-label', `Status: ${newStatus}`);
-              
-              // Update progress
-              updateProgressStats();
-            }
-          });
-        });
-      };
-      
-      const updateProgressStats = () => {
-        const progress = ProblemData.getProgressStats();
-        
-        // Update total progress
-        const totalElem = DOMStrings.progressElements.total;
-        document.querySelector(totalElem.count).textContent = progress.total.count;
-        document.querySelector(totalElem.total).textContent = progress.total.total;
-        
-        // Update easy progress
-        const easyElem = DOMStrings.progressElements.easy;
-        document.querySelector(easyElem.count).textContent = progress.easy.count;
-        document.querySelector(easyElem.total).textContent = progress.easy.total;
-        document.querySelector(easyElem.bar).style.width = `${progress.easy.percent}%`;
-        
-        // Update medium progress
-        const mediumElem = DOMStrings.progressElements.medium;
-        document.querySelector(mediumElem.count).textContent = progress.medium.count;
-        document.querySelector(mediumElem.total).textContent = progress.medium.total;
-        document.querySelector(mediumElem.bar).style.width = `${progress.medium.percent}%`;
-        
-        // Update hard progress
-        const hardElem = DOMStrings.progressElements.hard;
-        document.querySelector(hardElem.count).textContent = progress.hard.count;
-        document.querySelector(hardElem.total).textContent = progress.hard.total;
-        document.querySelector(hardElem.bar).style.width = `${progress.hard.percent}%`;
-      };
-      
-      const updateActiveFilter = (activeFilter) => {
-        document.querySelectorAll(DOMStrings.filterButtons).forEach(btn => {
-          btn.classList.remove('btn-primary', 'active');
-          btn.classList.add('btn-outline-secondary');
-          
-          if (btn.dataset.filter === activeFilter) {
-            btn.classList.add('btn-primary', 'active');
-            btn.classList.remove('btn-outline-secondary');
-          }
-        });
-      };
-      
-      const clearSearch = () => {
-        document.querySelector(DOMStrings.searchInput).value = '';
-      };
-      
-      const getSearchInput = () => {
-        return document.querySelector(DOMStrings.searchInput).value.trim();
-      };
-      
-      const toggleSidebar = () => {
-        document.querySelector(DOMStrings.sidebar).classList.toggle('active');
-        document.querySelector(DOMStrings.sidebarOverlay).classList.toggle('active');
-      };
-      
-      return {
-        DOMStrings,
-        renderProblems,
-        updateProgressStats,
-        updateActiveFilter,
-        clearSearch,
-        getSearchInput,
-        toggleSidebar
-      };
-    })();
-
-    // Main App Controller
-    const AppController = ((ProblemData, UIController) => {
-      const setupEventListeners = () => {
-        // Search input
-        document.querySelector(UIController.DOMStrings.searchInput)
-          .addEventListener('input', filterProblems);
-          
-        // Filter buttons
-        document.querySelectorAll(UIController.DOMStrings.filterButtons)
-          .forEach(button => {
-            button.addEventListener('click', () => {
-              const filter = button.dataset.filter;
-              UIController.updateActiveFilter(filter);
-              filterProblems();
-            });
-          });
-          
-        // Reset button
-        document.querySelector(UIController.DOMStrings.resetBtn)
-          .addEventListener('click', resetFilters);
-          
-        // Menu toggle button
-        document.querySelector(UIController.DOMStrings.menuToggle)
-          .addEventListener('click', UIController.toggleSidebar);
-          
-        // Sidebar overlay click
-        document.querySelector(UIController.DOMStrings.sidebarOverlay)
-          .addEventListener('click', UIController.toggleSidebar);
-      };
-      
-      const filterProblems = () => {
-        const searchTerm = UIController.getSearchInput();
-        const activeFilter = document.querySelector(`${UIController.DOMStrings.filterButtons}.active`).dataset.filter;
-        
-        const filteredProblems = ProblemData.getFilteredProblems(activeFilter, searchTerm);
-        UIController.renderProblems(filteredProblems);
-      };
-      
-      const resetFilters = () => {
-        UIController.clearSearch();
-        UIController.updateActiveFilter('all');
-        filterProblems();
-      };
-      
-      const init = () => {
-        console.log('App initialized');
-        setupEventListeners();
-        
-        // Initial render
-        UIController.renderProblems(ProblemData.getAllProblems());
-        UIController.updateProgressStats();
-      };
-      
-      return {
-        init
-      };
-    })(ProblemData, UIController);
-
-    // Initialize the application
-    document.addEventListener('DOMContentLoaded', AppController.init);
+    // Run on scroll
+    window.addEventListener('scroll', animateOnScroll);
   </script>
 </body>
+
 </html>

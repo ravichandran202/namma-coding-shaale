@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    rel="stylesheet">
   <!-- Monaco Editor -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
   <!-- Custom CSS -->
@@ -17,6 +22,7 @@
     :root {
       --primary: #3b82f6;
       --primary-hover: #2563eb;
+      --primary-light: #93c5fd;
       --success: #10b981;
       --warning: #f59e0b;
       --danger: #ef4444;
@@ -50,10 +56,13 @@
       left: 0;
       bottom: 0;
       width: var(--sidebar-width);
-      background-color: var(--sidebar-bg);
-      color: var(--sidebar-text);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
       padding: 1rem;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
       z-index: 1000;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -85,7 +94,7 @@
     .sidebar-header {
       padding: 1rem 0.5rem;
       margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .sidebar-header h3 {
@@ -94,6 +103,8 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      color: white;
+      font-family: 'Playfair Display', serif;
     }
 
     .sidebar-menu {
@@ -110,21 +121,20 @@
       display: flex;
       align-items: center;
       padding: 0.75rem 1rem;
-      color: var(--sidebar-text);
+      color: rgba(255, 255, 255, 0.8);
       text-decoration: none;
       border-radius: 8px;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
     }
 
     .sidebar-menu a:hover {
-      background-color: var(--sidebar-hover-bg);
-      color: var(--primary);
+      color: white !important;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .sidebar-menu a.active {
-      background-color: var(--sidebar-active-bg);
-      color: var(--primary);
-      font-weight: 500;
+      color: white !important;
+      background: rgba(37, 99, 235, 0.15);
     }
 
     .sidebar-menu a i {
@@ -139,18 +149,31 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       text-align: center;
       font-size: 0.8rem;
-      color: var(--text-light);
+      color: rgba(255, 255, 255, 0.5);
     }
+
+    .sidebar-title {
+      font-family: 'Playfair Display', serif;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+    }
+
+
+    .brand-highlight {
+      color: var(--primary-light);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+
 
     /* Main Content Styles */
     .main-content {
       padding: 1rem;
       transition: transform 0.3s ease;
       height: 100%;
-      box-sizing: border-box;
     }
 
     /* Mobile Menu Toggle Button */
@@ -340,7 +363,7 @@
       display: inline-block;
       width: 1rem;
       height: 1rem;
-      border: 2px solid rgba(255,255,255,.3);
+      border: 2px solid rgba(255, 255, 255, .3);
       border-radius: 50%;
       border-top-color: #fff;
       animation: spin 1s ease-in-out infinite;
@@ -348,7 +371,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* Problem Info Section */
@@ -462,6 +487,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Sidebar Overlay (for mobile) -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -469,13 +495,17 @@
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <h3><i class="fas fa-code me-1"></i> DSA Tracker</h3>
+      <h3 class="sidebar-title">
+        <i class="fas fa-code me-2"></i>
+        <span class="brand-text">ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>
+        <i class="fas fa-code ms-2"></i>
+      </h3>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="./home.html"><i class="fas fa-home"></i> Sample Home</a></li>
-      <li><a href="./index.html"><i class="fas fa-list-check"></i> Problem List</a></li>
-      <li><a href="./notes.html"  class="active"><i class="fas fa-book"></i> Sample Notes</a></li>
-      <li><a href="./code-editor.html"><i class="fas fa-code"></i> Code Editor</a></li>
+      <li><a href="./index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="./problem-list.html" ><i class="fas fa-list-check"></i> Problem List</a></li>
+      <li><a href="./notes.html" class="active"><i class="fas fa-book"></i> Notes</a></li>
+      <li><a href="./code-editor.html"><i class="fas fa-laptop-code"></i> Code Editor</a></li>
     </ul>
     <div class="sidebar-footer">
       <p>DSA Tracker v1.0</p>
@@ -495,42 +525,50 @@
       <div class="problem-info">
         <h3 id="problem-title">Introduction to Python Programming</h3>
         <span class="problem-difficulty easy">Beginner</span>
-        
+
         <div class="problem-description">
-          <p>Python is a high-level, interpreted programming language known for its simplicity and readability. Created by Guido van Rossum in 1991, Python has become one of the most popular languages for beginners and professionals alike.</p>
-          
+          <p>Python is a high-level, interpreted programming language known for its simplicity and readability. Created
+            by Guido van Rossum in 1991, Python has become one of the most popular languages for beginners and
+            professionals alike.</p>
+
           <div class="text-center my-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python Logo" style="max-width: 150px;">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
+              alt="Python Logo" style="max-width: 150px;">
           </div>
         </div>
-        
+
         <h5>Fundamental Concepts:</h5>
         <div class="problem-example">
           <div class="qa-item mb-3">
             <p><strong>Q: What is a program?</strong></p>
-            <p>A: A program is a set of instructions that tells a computer what to do. Programs are written in programming languages like Python.</p>
+            <p>A: A program is a set of instructions that tells a computer what to do. Programs are written in
+              programming languages like Python.</p>
           </div>
-          
+
           <div class="qa-item mb-3">
             <p><strong>Q: What is software?</strong></p>
-            <p>A: Software is a collection of programs and related data that provide the instructions for telling a computer what to do.</p>
+            <p>A: Software is a collection of programs and related data that provide the instructions for telling a
+              computer what to do.</p>
           </div>
-          
+
           <div class="qa-item mb-3">
             <p><strong>Q: Why Python?</strong></p>
-            <p>A: Python is easy to learn, has simple syntax, runs on all platforms, and has a huge community and library support.</p>
+            <p>A: Python is easy to learn, has simple syntax, runs on all platforms, and has a huge community and
+              library support.</p>
           </div>
         </div>
-        
+
         <h5>Your First Python Program:</h5>
         <div class="problem-example">
           <p><strong>Hello World Example:</strong></p>
           <pre><code># This is a simple Python program
       print("Hello, World!")</code></pre>
           <p><strong>Output:</strong> Hello, World!</p>
-          <p><strong>Explanation:</strong> The <code>print()</code> function displays text on the screen. Anything inside quotes is treated as text (string).</p>
+          <p><strong>Explanation:</strong> The <code>print()</code> function displays text on the screen. Anything
+            inside quotes is treated as text (string).</p>
         </div>
-        
+
         <h5>How Python Works Internally:</h5>
         <div class="problem-example">
           <p>Python is an interpreted language, which means:</p>
@@ -540,13 +578,14 @@
             <li>Python compiles source code to bytecode (stored in .pyc files)</li>
             <li>The Python Virtual Machine (PVM) executes the bytecode</li>
           </ol>
-          
+
           <div class="text-center my-3">
-            <img src="https://iqratechnology.com/wp-content/uploads/2024/09/Python-Program-Execution-1.png" alt="Python Execution Flow" style="max-width: 100%; border: 1px solid #eee; border-radius: 4px;">
+            <img src="https://iqratechnology.com/wp-content/uploads/2024/09/Python-Program-Execution-1.png"
+              alt="Python Execution Flow" style="max-width: 100%; border: 1px solid #eee; border-radius: 4px;">
             <p class="text-muted small mt-1">Python Execution Flow Diagram</p>
           </div>
         </div>
-        
+
         <h5>Key Python Features:</h5>
         <div class="problem-example">
           <ul class="feature-list">
@@ -557,7 +596,7 @@
             <li><i class="fas fa-check-circle text-success me-2"></i> Automatic memory management</li>
           </ul>
         </div>
-        
+
         <h5>Python Use Cases:</h5>
         <div class="">
           <div class="row">
@@ -587,7 +626,7 @@
             </div>
           </div>
         </div>
-        
+
         <h5>Python vs Compiled Languages:</h5>
         <div>
           <table class="table table-bordered">
@@ -624,7 +663,7 @@
         <!-- Editor Section -->
         <div class="editor-container">
           <div class="editor-header">
-            <h4><i class="fas fa-code me-2"></i>Code Editor 
+            <h4><i class="fas fa-code me-2"></i>Code Editor
               <select class="language-selector" id="languageSelector">
                 <option value="python">Python</option>
                 <option value="javascript">JavaScript</option>
@@ -640,7 +679,7 @@
           </div>
           <div id="editor"></div>
         </div>
-        
+
         <!-- Console Section -->
         <div class="console-container" id="consoleContainer">
           <div class="console-resize-handle" id="consoleResizeHandle"></div>
@@ -663,7 +702,7 @@
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+
   <!-- Editor and Application Script -->
   <script>
     // Language templates and Piston API mappings
@@ -695,12 +734,12 @@
     };
 
     // Initialize Monaco Editor
-    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs' }});
-    
+    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs' } });
+
     let editor;
     let currentLanguage = 'python';
 
-    require(['vs/editor/editor.main'], function() {
+    require(['vs/editor/editor.main'], function () {
       editor = monaco.editor.create(document.getElementById('editor'), {
         value: languageConfig.python.template,
         language: 'python',
@@ -713,7 +752,7 @@
         scrollBeyondLastLine: false,
         renderWhitespace: 'selection'
       });
-      
+
       // Get DOM elements
       const runBtn = document.getElementById('runBtn');
       const resetBtn = document.getElementById('resetBtn');
@@ -722,11 +761,11 @@
       const consoleContainer = document.getElementById('consoleContainer');
       const maximizeBtn = document.getElementById('maximizeBtn');
       const resizeHandle = document.getElementById('consoleResizeHandle');
-      
+
       // Console state
       let isConsoleMaximized = false;
       let originalConsoleHeight = consoleContainer.offsetHeight;
-      
+
       // Toggle console maximize/minimize
       maximizeBtn.addEventListener('click', () => {
         if (isConsoleMaximized) {
@@ -743,14 +782,14 @@
         isConsoleMaximized = !isConsoleMaximized;
         editor.layout(); // Tell Monaco to recalculate layout
       });
-      
+
       // Make console resizable
-      resizeHandle.addEventListener('mousedown', function(e) {
+      resizeHandle.addEventListener('mousedown', function (e) {
         e.preventDefault();
-        
+
         const startY = e.clientY;
         const startHeight = parseInt(document.defaultView.getComputedStyle(consoleContainer).height, 10);
-        
+
         function doDrag(e) {
           const newHeight = startHeight + startY - e.clientY;
           if (newHeight > 100 && newHeight < window.innerHeight - 100) {
@@ -758,11 +797,11 @@
             editor.layout(); // Tell Monaco to recalculate layout
           }
         }
-        
+
         function stopDrag() {
           document.documentElement.removeEventListener('mousemove', doDrag, false);
           document.documentElement.removeEventListener('mouseup', stopDrag, false);
-          
+
           // Update state if we're near max/min
           const currentHeight = parseInt(document.defaultView.getComputedStyle(consoleContainer).height, 10);
           if (currentHeight > window.innerHeight * 0.6) {
@@ -773,28 +812,28 @@
             maximizeBtn.innerHTML = '<i class="fas fa-expand me-1"></i> Maximize';
           }
         }
-        
+
         document.documentElement.addEventListener('mousemove', doDrag, false);
         document.documentElement.addEventListener('mouseup', stopDrag, false);
       });
-      
+
       // Execute code using Piston API
       async function executeCode(code, language) {
         const config = languageConfig[language];
-        
+
         try {
           // Show loading state
           runBtn.innerHTML = '<span class="spinner"></span> Running';
           runBtn.disabled = true;
-          
+
           consoleOutput.innerHTML = `[${new Date().toLocaleTimeString()}] Executing ${language} code...\n`;
-          
+
           const payload = {
             language: config.pistonLang,
             version: config.pistonVersion,
             files: [{
-              name: language === 'java' ? 'Main.java' : 
-                    language === 'cpp' ? 'main.cpp' : 'main',
+              name: language === 'java' ? 'Main.java' :
+                language === 'cpp' ? 'main.cpp' : 'main',
               content: code
             }]
           };
@@ -812,17 +851,17 @@
             },
             body: JSON.stringify(payload)
           });
-          
+
           const data = await response.json();
-          
+
           // Clear previous output
           consoleOutput.innerHTML = '';
-          
+
           // Display execution results
           if (data.compile && data.compile.stderr) {
             consoleOutput.innerHTML += `=== Compilation Error ===\n${data.compile.stderr}\n\n`;
           }
-          
+
           if (data.run) {
             if (data.run.stdout) {
               consoleOutput.innerHTML += `=== Output ===\n${data.run.stdout}\n`;
@@ -830,7 +869,7 @@
             if (data.run.stderr) {
               consoleOutput.innerHTML += `=== Runtime Error ===\n${data.run.stderr}\n`;
             }
-            
+
             // Show execution summary
             consoleOutput.innerHTML += `\n=== Execution Summary ===
 Language: ${language}
@@ -846,24 +885,24 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
           // Reset button state
           runBtn.innerHTML = '<i class="fas fa-play me-1"></i> Run Code';
           runBtn.disabled = false;
-          
+
           // Auto-scroll to bottom
           consoleOutput.scrollTop = consoleOutput.scrollHeight;
         }
       }
-      
+
       // Run button click handler
       runBtn.addEventListener('click', () => {
         const code = editor.getValue();
         executeCode(code, currentLanguage);
       });
-      
+
       // Reset button click handler
       resetBtn.addEventListener('click', () => {
         editor.setValue(languageConfig[currentLanguage].template);
         consoleOutput.innerHTML = `[${new Date().toLocaleTimeString()}] Reset ${currentLanguage} template.\n`;
       });
-      
+
       // Language selector change handler
       languageSelector.addEventListener('change', (e) => {
         currentLanguage = e.target.value;
@@ -873,7 +912,7 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
           java: 'java',
           cpp: 'cpp'
         };
-        
+
         monaco.editor.setModelLanguage(editor.getModel(), languageMap[currentLanguage]);
         editor.setValue(languageConfig[currentLanguage].template);
         consoleOutput.innerHTML = `[${new Date().toLocaleTimeString()}] Switched to ${currentLanguage}.\n`;
@@ -884,12 +923,12 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
-    
+
     menuToggle.addEventListener('click', () => {
       sidebar.classList.toggle('active');
       sidebarOverlay.classList.toggle('active');
     });
-    
+
     sidebarOverlay.addEventListener('click', () => {
       sidebar.classList.remove('active');
       sidebarOverlay.classList.remove('active');
@@ -903,4 +942,5 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
     });
   </script>
 </body>
+
 </html>
