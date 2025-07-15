@@ -789,6 +789,11 @@
       text-align: center;
     }
 
+    #heading{
+      font-size: 1.4rem;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 1199px) {
       :root {
@@ -828,6 +833,15 @@
       :root {
         --section-padding: 4rem 0;
       }
+
+      .navbar-brand{
+        font-size: 1rem;
+      }
+
+      #heading{
+      font-size: 1rem;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
       .hero-section {
         padding: 6rem 0 4rem;
@@ -961,8 +975,7 @@
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <i class="fas fa-laptop-code"></i>
-        <span>ನಮ್ಮ Coding ಶಾಲೆ</span>
+        <i class="fas fa-code"></i><span>ನಮ್ಮ <b id="heading">CODING</b> ಶಾಲೆ</span><i class="fas fa-code"></i>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
