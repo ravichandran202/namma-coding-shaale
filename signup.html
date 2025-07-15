@@ -92,7 +92,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4rem;
+      padding: 1rem;
       background-color: white;
       position: relative;
     }
@@ -191,24 +191,27 @@
     .form-control:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+      outline: none;
     }
 
     .input-group {
       position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    .input-icon {
+    /* .input-icon {
       position: absolute;
-      top: 50%;
       left: 1rem;
-      transform: translateY(-50%);
       color: var(--gray);
-      z-index: 5;
-    }
+      z-index: 2;
+      pointer-events: none;
+    } */
 
-    .input-with-icon {
-      padding-left: 2.5rem;
-    }
+    /* .input-with-icon {
+      padding-left: 3rem !important;
+      width: 100%;
+    } */
 
     .btn-auth {
       width: 100%;
@@ -504,44 +507,40 @@
         <h2 class="auth-title">Create Account</h2>
         <p class="auth-subtitle">Get started with your free account today</p>
 
-        <form>
-          <div class="row">
+        <form id="signupForm">
+          <!-- <div class="row">
             <div class="col-md-6 mb-3">
               <label for="firstName" class="form-label">First Name</label>
               <div class="input-group">
-                <span class="input-icon"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control input-with-icon" id="firstName" placeholder="Enter your first name" required>
               </div>
             </div>
             <div class="col-md-6 mb-3">
               <label for="lastName" class="form-label">Last Name</label>
               <div class="input-group">
-                <span class="input-icon"><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control input-with-icon" id="lastName" placeholder="Enter your last name" required>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="mb-3">
             <label for="email" class="form-label">Email Address</label>
             <div class="input-group">
-              <span class="input-icon"><i class="fas fa-envelope"></i></span>
               <input type="email" class="form-control input-with-icon" id="email" placeholder="Enter your email" required>
             </div>
           </div>
-          <div class="mb-3">
+          <!-- <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
-              <span class="input-icon"><i class="fas fa-lock"></i></span>
               <input type="password" class="form-control input-with-icon" id="password" placeholder="Create a password" required>
               <span class="password-toggle" id="togglePassword">
                 <i class="fas fa-eye"></i>
               </span>
             </div>
-          </div>
-          <div class="mb-3 form-check">
+          </div> -->
+          <!-- <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="terms" required>
             <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a></label>
-          </div>
+          </div> -->
           <button type="submit" class="btn btn-primary btn-auth">
             <span class="me-2">Create Account</span>
             <i class="fas fa-arrow-right"></i>
@@ -582,6 +581,9 @@
       const particlesContainer = document.getElementById('particles');
       if (!particlesContainer) return;
       
+      // Clear existing particles
+      particlesContainer.innerHTML = '';
+      
       const particleCount = 20;
       
       for (let i = 0; i < particleCount; i++) {
@@ -608,6 +610,22 @@
       }
     }
     
+    // Form submission handler
+    document.getElementById('signupForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate terms checkbox
+      const termsCheckbox = document.getElementById('terms');
+      if (!termsCheckbox.checked) {
+        alert('Please agree to the Terms of Service and Privacy Policy');
+        return;
+      }
+      
+      // Here you would typically send the form data to your server
+      console.log('Form submitted successfully');
+      // window.location.href = 'success.html'; // Redirect on success
+    });
+    
     // Initialize particles when DOM is loaded
     document.addEventListener('DOMContentLoaded', createParticles);
     
@@ -615,13 +633,23 @@
     const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
       input.addEventListener('mouseenter', () => {
-        input.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.1)';
+        if (document.activeElement !== input) {
+          input.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.1)';
+        }
       });
       
       input.addEventListener('mouseleave', () => {
         if (document.activeElement !== input) {
           input.style.boxShadow = 'none';
         }
+      });
+      
+      input.addEventListener('focus', () => {
+        input.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.2)';
+      });
+      
+      input.addEventListener('blur', () => {
+        input.style.boxShadow = 'none';
       });
     });
   </script>

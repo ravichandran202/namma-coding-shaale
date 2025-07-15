@@ -190,19 +190,6 @@
       position: relative;
     }
 
-    .input-icon {
-      position: absolute;
-      top: 50%;
-      left: 1rem;
-      transform: translateY(-50%);
-      color: var(--gray);
-      z-index: 5;
-    }
-
-    .input-with-icon {
-      padding-left: 2.5rem;
-    }
-
     .btn-auth {
       width: 100%;
       padding: 0.875rem;
@@ -495,14 +482,12 @@
           <div class="mb-3">
             <label for="email" class="form-label">Email Address</label>
             <div class="input-group">
-              <span class="input-icon"><i class="fas fa-envelope"></i></span>
               <input type="email" class="form-control input-with-icon" id="email" placeholder="Enter your email" required>
             </div>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
-              <span class="input-icon"><i class="fas fa-lock"></i></span>
               <input type="password" class="form-control input-with-icon" id="password" placeholder="Enter your password" required>
               <span class="password-toggle" id="togglePassword">
                 <i class="fas fa-eye"></i>
@@ -523,14 +508,14 @@
 
           <div class="auth-divider">or</div>
 
-          <div class="social-login">
+          <!-- <div class="social-login">
             <button type="button" class="social-btn google">
               <i class="fab fa-google"></i> Google
             </button>
             <button type="button" class="social-btn github">
               <i class="fab fa-github"></i> GitHub
             </button>
-          </div>
+          </div> -->
 
           <div class="auth-footer">
             Don't have an account? <a href="signup.html">Sign up</a>
@@ -549,18 +534,25 @@
     const togglePassword = document.querySelector('#togglePassword');
     const password = document.querySelector('#password');
     
-    togglePassword.addEventListener('click', function (e) {
-      // toggle the type attribute
-      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-      password.setAttribute('type', type);
-      // toggle the eye icon
-      this.querySelector('i').classList.toggle('fa-eye');
-      this.querySelector('i').classList.toggle('fa-eye-slash');
-    });
+    if (togglePassword && password) {
+      togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye icon
+        this.querySelector('i').classList.toggle('fa-eye');
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+      });
+    }
     
     // Create floating particles
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
+      if (!particlesContainer) return;
+      
+      // Clear existing particles
+      particlesContainer.innerHTML = '';
+      
       const particleCount = 20;
       
       for (let i = 0; i < particleCount; i++) {
@@ -587,6 +579,13 @@
       }
     }
     
+    // Form submission handler
+    document.querySelector('form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Add your form submission logic here
+      console.log('Form submitted');
+    });
+    
     // Initialize particles when DOM is loaded
     document.addEventListener('DOMContentLoaded', createParticles);
     
@@ -594,7 +593,9 @@
     const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
       input.addEventListener('mouseenter', () => {
-        input.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.1)';
+        if (document.activeElement !== input) {
+          input.style.boxShadow = '0 0 0 2px rgba(37, 99, 235, 0.1)';
+        }
       });
       
       input.addEventListener('mouseleave', () => {
@@ -602,8 +603,12 @@
           input.style.boxShadow = 'none';
         }
       });
+      
+      input.addEventListener('focus', () => {
+        input.style.boxShadow = 'none';
+      });
     });
-  </script>
+</script>
 </body>
 
 </html>
