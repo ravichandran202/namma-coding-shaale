@@ -13,6 +13,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
     rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
   <!-- Custom CSS -->
   <style>
     :root {
@@ -223,6 +226,20 @@
     }
 
     /* Hero Section */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
     .hero-section {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: white;
@@ -233,6 +250,7 @@
       min-height: 600px;
       display: flex;
       align-items: center;
+      z-index: 1;
       /* New background pattern */
       /* background-image: 
       radial-gradient(circle at 25% 70%, rgba(255,255,255,0.1) 0%, transparent 25%),
@@ -1049,7 +1067,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">
-        &lt;  <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>  /&gt;
+        &lt; <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span> /&gt;
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -1088,7 +1106,8 @@
 
   <!-- Hero Section -->
   <section class="hero-section">
-    <div class="container text-center">
+    <div id="particles-js"></div> <!-- Add this line -->
+    <div class="container text-center hero-content">
       <h1 class="hero-title animate">Master Coding & Python</h1>
       <p class="hero-subtitle animate delay-1">Learn by solving 100+ LeetCode-style problems with expert guidance and
         real-world interview experience. Build confidence and land your dream tech job.</p>
@@ -1386,7 +1405,124 @@
 
     // Run on scroll
     window.addEventListener('scroll', animateOnScroll);
-  </script>
+
+// Particle.js configuration with improved responsiveness
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('particles-js')) {
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          }
+        },
+        "opacity": {
+          "value": 0.4,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.5,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "bounce",
+          "bounce": true,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 200,
+            "line_linked": {
+              "opacity": 0.5
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 6
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      if (window.pJSDom && window.pJSDom.length > 0) {
+        window.pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.pJSDom[0].pJS.fn.vendors.init();
+        window.pJSDom[0].pJS.fn.vendors.start();
+      }
+    });
+  }
+});
+</script>
 </body>
 
 </html>
