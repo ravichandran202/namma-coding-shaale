@@ -311,7 +311,7 @@
       z-index: 1;
     }
 
-    .btn-hero:after {
+    /* .btn-hero:after {
       content: '';
       position: absolute;
       top: 0;
@@ -322,17 +322,17 @@
       opacity: 0;
       transition: var(--transition);
       z-index: -1;
-    }
+    } */
 
-    .btn-hero:hover {
+    /* .btn-hero:hover {
       transform: translateY(-5px);
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
       color: var(--primary-dark);
-    }
+    } */
 
-    .btn-hero:hover:after {
+    /* .btn-hero:hover:after {
       opacity: 1;
-    }
+    } */
 
     /* Section Styling */
     .section {
@@ -425,120 +425,374 @@
       line-height: 1.7;
     }
 
-    /* Highlight Cards */
-    .highlight-card {
+    /* Premium Courses Section Styling */
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .letter-spacing-3 {
+      letter-spacing: 3px;
+    }
+
+    .courses-scroller {
+      overflow-x: auto;
+      padding-bottom: 2rem;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem;
+    }
+
+    .courses-container {
+      display: flex;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      width: max-content;
+    }
+
+    .course-card {
       background-color: white;
       border-radius: var(--border-radius);
-      padding: 2.5rem;
-      margin-bottom: 2rem;
+      overflow: hidden;
       box-shadow: var(--shadow);
       transition: var(--transition);
-      border: 1px solid var(--border);
+      width: 320px;
+      flex-shrink: 0;
+      border: 1px solid rgba(37, 99, 235, 0.1);
       position: relative;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .course-img-container {
+      position: relative;
+      height: 180px;
       overflow: hidden;
     }
 
-    .highlight-card:before {
-      content: '';
+    .course-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .course-card:hover .course-img {
+      transform: scale(1.05);
+    }
+
+    .course-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      background: var(--primary);
+      height: 100%;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.1) 100%);
     }
 
-    .highlight-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
+    .course-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 2;
     }
 
-    .highlight-title {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      color: var(--primary);
+    .course-level {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 2;
+    }
+
+    .level-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 1px solid white;
+    }
+
+    .level-dot.active {
+      background-color: white;
+    }
+
+    .course-content {
+      padding: 1.5rem;
+    }
+
+    .course-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .course-desc {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      min-height: 60px;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .course-meta span {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
-    .highlight-title i {
-      font-size: 1.75rem;
-    }
-
-    .highlight-item {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-    }
-
-    .highlight-item i {
-      color: var(--secondary);
-      margin-right: 1rem;
-      margin-top: 0.2rem;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-    }
-
-    .highlight-item h5 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .highlight-item p {
-      color: var(--gray);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    /* Comparison Section */
-    .comparison-section {
-      background-color: white;
-      border-radius: var(--border-radius);
-      padding: 4rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
-
-    .comparison-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: var(--border-radius);
+    .course-progress {
+      height: 6px;
+      background-color: var(--gray-light);
+      border-radius: 3px;
       overflow: hidden;
     }
 
-    .comparison-table th,
-    .comparison-table td {
-      padding: 1.25rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 3px;
     }
 
-    .comparison-table th {
+    .course-price {
+      font-size: 1.1rem;
+    }
+
+    .course-rating {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
       font-weight: 600;
-      background-color: var(--light);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .comparison-table tr:last-child td {
-      border-bottom: none;
+    .course-rating i {
+      color: #f59e0b;
     }
 
-    .comparison-table tr:hover td {
-      background-color: rgba(147, 197, 253, 0.05);
+    .course-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: white;
+      border: none;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0;
+      transition: all 0.3s ease;
     }
 
-    .check-mark {
-      color: var(--secondary);
-      font-weight: bold;
-      font-size: 1.25rem;
+    .prev-btn {
+      left: -24px;
     }
 
-    .x-mark {
-      color: #ef4444;
-      font-weight: bold;
-      font-size: 1.25rem;
+    .next-btn {
+      right: -24px;
+    }
+
+    .courses-scroller:hover .course-nav-btn {
+      opacity: 1;
+    }
+
+    .course-nav-btn:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Hide scrollbar but keep functionality */
+    .courses-scroller::-webkit-scrollbar {
+      display: none;
+    }
+
+    .courses-scroller {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Comparison Section */
+    /* Premium Why Choose Section Styling */
+    .bg-gradient-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    }
+
+    .bg-gradient-secondary {
+      background: linear-gradient(135deg, var(--secondary), #059669);
+    }
+
+    .premium-card {
+      background-color: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      transition: var(--transition);
+      height: 100%;
+      border: 1px solid rgba(37, 99, 235, 0.1);
+    }
+
+    .premium-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.2);
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-header h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .card-header i {
+      font-size: 1.2rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .learning-path {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .path-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .path-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .path-content h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-family: monospace;
+    }
+
+    .path-content p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .feature-item:hover .feature-icon {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .feature-content h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--dark);
+      font-family: monospace;
+    }
+
+    .feature-content p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .path-item {
+        gap: 1rem;
+      }
+
+      .path-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
     }
 
     /* Pricing Section */
@@ -642,7 +896,7 @@
 
     /* CTA Section */
     .cta-section {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: linear-gradient(135deg, var(--primary-dark), #6d28d9);
       color: white;
       padding: 6rem 0;
       text-align: center;
@@ -863,6 +1117,87 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+
+    bg-light {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .border-light {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .icon-sm {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon-lg {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .testimonial-carousel .swiper-pagination-bullet {
+    background: rgba(0,0,0,0.5);
+    opacity: 1;
+  }
+  
+  .testimonial-carousel .swiper-pagination-bullet-active {
+    background: var(--primary);
+    width: 20px;
+    border-radius: 4px;
+  }
+  
+  .comparison-card {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .feature-highlight {
+    transition: var(--transition);
+  }
+  
+  .feature-highlight:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+    border-color: rgba(37, 99, 235, 0.3) !important;
+  }
+
+  .certificate-container {
+    background: transparent;
+    overflow: hidden;
+  }
+  
+  .certificate-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: none;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .certificate-badge {
+    font-size: 0.9rem;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.15);
+    z-index: 3;
+  }
+  
+  /* Fix for potential z-index issues */
+  .position-relative {
+    z-index: 1;
+  }
+  
+  /* Ensure the opacity layer doesn't obscure the image */
+  .position-absolute.bg-primary {
+    z-index: 1;
+  }
     /* Responsive adjustments */
     @media (max-width: 1199px) {
       :root {
@@ -979,6 +1314,14 @@
         padding: 2rem;
       }
 
+      .course-card {
+        width: 280px;
+      }
+
+      .course-nav-btn {
+        display: none;
+      }
+
       .pricing-card {
         padding: 2.5rem 1.5rem;
       }
@@ -1002,7 +1345,7 @@
       }
 
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
 
       .section-title {
@@ -1108,85 +1451,263 @@
   <section class="hero-section">
     <div id="particles-js"></div> <!-- Add this line -->
     <div class="container text-center hero-content">
-      <h1 class="hero-title animate">Master Coding & Python</h1>
-      <p class="hero-subtitle animate delay-1">Learn by solving 100+ LeetCode-style problems with expert guidance and
-        real-world interview experience. Build confidence and land your dream tech job.</p>
+      <h1 class="hero-title animate">&lt; <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span>
+          ಶಾಲೆ</span> /&gt;</h1>
+      <p class="hero-subtitle animate delay-1">Learn coding by solving 100+ problems with expert guidance and
+        real-world interview experience. Build confidence and crack your dream tech job.</p>
       <div class="animate delay-2">
         <a href="./index.html" class="btn btn-hero">Start Learning <i class="fas fa-arrow-right ms-2"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- Course Highlights -->
-  <section class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Why Choose Our Course</h2>
-      <p class="section-subtitle">A comprehensive learning experience designed to take you from beginner to
-        interview-ready</p>
+  <!-- Premium Courses Section -->
+  <section class="section">
 
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="highlight-card animate">
-            <h3 class="highlight-title"><i class="fas fa-check-circle"></i> What You'll Learn</h3>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>100+ Carefully Selected Problems</h5>
-                <p>From basic to advanced, covering all essential DSA topics with increasing difficulty</p>
+    <div class="container">
+      <div class="text-center mb-6">
+        <span class="text-uppercase text-primary fw-bold letter-spacing-3">Comprehensive Learning</span>
+        <h2 class="section-title mt-3">Our <span class="text-gradient">Structured Courses</span></h2>
+        <p class="section-subtitle">Designed to take you from beginner to advanced level with hands-on practice</p>
+      </div>
+
+      <div class="position-relative">
+        <!-- Navigation Arrows -->
+        <button class="course-nav-btn prev-btn" aria-label="Previous courses">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="course-nav-btn next-btn" aria-label="Next courses">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div class="courses-scroller">
+          <div class="courses-container">
+            <!-- Course 1 -->
+            <div class="course-card animate">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="Python Basics" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-primary">Beginner</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot"></span>
+                  <span class="level-dot"></span>
+                </div>
+              </div>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-muted small">Foundation Course</span>
+                    <h3 class="course-title">Python Fundamentals</h3>
+                  </div>
+                  <div class="course-rating">
+                    <i class="fas fa-star"></i>
+                    <span>4.9</span>
+                  </div>
+                </div>
+                <p class="course-desc">Build a solid foundation with Python syntax, data types, and control structures.
+                </p>
+                <div class="course-meta">
+                  <span><i class="far fa-file-alt me-1"></i> 12 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 30 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar" style="width: 75%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-primary fw-bold">$99</span>
+                    <span class="text-muted text-decoration-line-through ms-2">$149</span>
+                  </div>
+                  <button href="#" class="btn btn-sm btn-premium" data-bs-toggle="modal"
+                    data-bs-target="#syllabusModal1">
+                    <i class="fas fa-gem me-1"></i> Enroll
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Python Programming Mastery</h5>
-                <p>Write efficient, clean Python code that impresses in technical interviews</p>
+
+            <!-- Course 2 -->
+            <div class="course-card animate delay-1">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="DSA with Python" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-secondary">Intermediate</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot active"></span>
+                  <span class="level-dot"></span>
+                </div>
+              </div>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-muted small">Core Program</span>
+                    <h3 class="course-title">DSA Mastery</h3>
+                  </div>
+                  <div class="course-rating">
+                    <i class="fas fa-star"></i>
+                    <span>4.8</span>
+                  </div>
+                </div>
+                <p class="course-desc">Master data structures and algorithms with Python for technical interviews.</p>
+                <div class="course-meta">
+                  <span><i class="far fa-file-alt me-1"></i> 15 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 45 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar" style="width: 60%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-primary fw-bold">$149</span>
+                    <span class="text-muted text-decoration-line-through ms-2">$199</span>
+                  </div>
+                  <button href="#" class="btn btn-sm btn-premium" data-bs-toggle="modal"
+                    data-bs-target="#syllabusModal2">
+                    <i class="fas fa-gem me-1"></i> Enroll
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Problem Solving Patterns</h5>
-                <p>Recognize and apply common problem-solving techniques to new challenges</p>
+
+            <!-- Course 3 -->
+            <div class="course-card animate delay-1">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="System Design" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-warning">Advanced</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot active"></span>
+                  <span class="level-dot active"></span>
+                </div>
+              </div>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-muted small">Expert Series</span>
+                    <h3 class="course-title">System Design</h3>
+                  </div>
+                  <div class="course-rating">
+                    <i class="fas fa-star"></i>
+                    <span>4.9</span>
+                  </div>
+                </div>
+                <p class="course-desc">Learn to design scalable systems for senior engineering interviews.</p>
+                <div class="course-meta">
+                  <span><i class="far fa-file-alt me-1"></i> 10 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 25 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar" style="width: 45%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-primary fw-bold">$199</span>
+                    <span class="text-muted text-decoration-line-through ms-2">$249</span>
+                  </div>
+                  <button href="#" class="btn btn-sm btn-premium" data-bs-toggle="modal"
+                    data-bs-target="#syllabusModal3">
+                    <i class="fas fa-gem me-1"></i> Enroll
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Time & Space Complexity</h5>
-                <p>Analyze and optimize your solutions like a senior engineer</p>
+
+            <!-- Course 4 -->
+            <div class="course-card animate delay-2">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="Web Development" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-primary">Beginner</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot"></span>
+                  <span class="level-dot"></span>
+                </div>
+              </div>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-muted small">Specialization</span>
+                    <h3 class="course-title">Web Development</h3>
+                  </div>
+                  <div class="course-rating">
+                    <i class="fas fa-star"></i>
+                    <span>4.7</span>
+                  </div>
+                </div>
+                <p class="course-desc">Build modern web applications with Django and Flask frameworks.</p>
+                <div class="course-meta">
+                  <span><i class="far fa-file-alt me-1"></i> 8 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 20 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar" style="width: 85%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-primary fw-bold">$129</span>
+                    <span class="text-muted text-decoration-line-through ms-2">$179</span>
+                  </div>
+                  <button href="#" class="btn btn-sm btn-premium">
+                    <i class="fas fa-gem me-1"></i> Enroll
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="highlight-card animate delay-1">
-            <h3 class="highlight-title"><i class="fas fa-star"></i> Course Features</h3>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Track Your Progress</h5>
-                <p>Monitor your solved problems and see your improvement over time</p>
+
+            <!-- Course 5 -->
+            <div class="course-card animate delay-2">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="Data Science" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-secondary">Intermediate</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot active"></span>
+                  <span class="level-dot"></span>
+                </div>
               </div>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Detailed Solutions</h5>
-                <p>Step-by-step explanations with multiple approaches for each problem</p>
-              </div>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Video Explanations</h5>
-                <p>Watch walkthroughs for complex problems with visualizations</p>
-              </div>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-check"></i>
-              <div>
-                <h5>Interview Tips</h5>
-                <p>Get insider advice on how to approach technical interviews</p>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-muted small">Specialization</span>
+                    <h3 class="course-title">Data Science</h3>
+                  </div>
+                  <div class="course-rating">
+                    <i class="fas fa-star"></i>
+                    <span>4.8</span>
+                  </div>
+                </div>
+                <p class="course-desc">Data analysis, visualization and machine learning with Python.</p>
+                <div class="course-meta">
+                  <span><i class="far fa-file-alt me-1"></i> 14 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 35 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar" style="width: 55%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-primary fw-bold">$169</span>
+                    <span class="text-muted text-decoration-line-through ms-2">$219</span>
+                  </div>
+                  <button href="#" class="btn btn-sm btn-premium">
+                    <i class="fas fa-gem me-1"></i> Enroll
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1195,115 +1716,565 @@
     </div>
   </section>
 
-  <!-- Comparison Section -->
+  <!-- Code Editor Feature Section -->
   <section class="section">
     <div class="container">
-      <div class="comparison-section animate">
-        <h2 class="section-title">Why Choose Our Course?</h2>
-        <p class="section-subtitle">See how we compare to other learning platforms</p>
-        <div class="table-responsive">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Features</th>
-                <th>Other Courses</th>
-                <th>Our Course</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>LeetCode-style Problems</td>
-                <td><span class="x-mark">✗</span> Limited</td>
-                <td><span class="check-mark">✓</span> 100+ Problems</td>
-              </tr>
-              <tr>
-                <td>Progress Tracking</td>
-                <td><span class="x-mark">✗</span> Basic</td>
-                <td><span class="check-mark">✓</span> Detailed Analytics</td>
-              </tr>
-              <tr>
-                <td>Video Explanations</td>
-                <td><span class="x-mark">✗</span> Few</td>
-                <td><span class="check-mark">✓</span> For All Problems</td>
-              </tr>
-              <tr>
-                <td>Interview Preparation</td>
-                <td><span class="x-mark">✗</span> Generic</td>
-                <td><span class="check-mark">✓</span> Real-world Focused</td>
-              </tr>
-              <tr>
-                <td>Community Support</td>
-                <td><span class="x-mark">✗</span> None</td>
-                <td><span class="check-mark">✓</span> Active Discussion</td>
-              </tr>
-              <tr>
-                <td>Code Editor</td>
-                <td><span class="x-mark">✗</span> External</td>
-                <td><span class="check-mark">✓</span> Built-in Editor</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="text-center mb-6">
+        <span class="text-uppercase text-primary fw-bold letter-spacing-3">Interactive Learning</span>
+        <h2 class="section-title mt-3">Practice with Our <span class="text-gradient">Built-in Code Editor</span></h2>
+        <p class="section-subtitle">Write, run, and debug Python code directly in your browser with our powerful coding
+          environment</p>
+      </div>
+
+      <div class="row g-4 align-items-center">
+        <!-- Editor Description -->
+        <div class="col-lg-6 animate">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="feature-title">Powerful Coding Environment</h3>
+            <p class="feature-text">
+              Our integrated code editor provides everything you need to practice Python programming:
+            </p>
+            <ul class="feature-list mt-3" style="list-style-type: none; padding-left: 0;">
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Syntax highlighting for Python</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Real-time code execution</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Error detection and debugging</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Code autocompletion</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Save and load your solutions</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Multiple file support</li>
+            </ul>
+            <div class="mt-4">
+              <a href="./code-editor.html" class="btn btn-primary">
+                <i class="fas fa-laptop-code me-2"></i> Try the Editor Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editor Preview Image -->
+        <div class="col-lg-6 animate delay-1">
+          <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: var(--border-radius);">
+            <div class="card-header bg-dark text-white py-3">
+              <div class="d-flex align-items-center">
+                <div class="me-3">
+                  <span class="bg-danger rounded-circle d-inline-block" style="width: 12px; height: 12px;"></span>
+                  <span class="bg-warning rounded-circle d-inline-block ms-2" style="width: 12px; height: 12px;"></span>
+                  <span class="bg-success rounded-circle d-inline-block ms-2" style="width: 12px; height: 12px;"></span>
+                </div>
+                <div class="text-truncate">example.py</div>
+              </div>
+            </div>
+            <div class="card-body p-0 bg-dark">
+              <pre class="m-0 p-3"
+                style="background-color: #1e293b; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.9rem; min-height: 300px;">
+<span style="color: #93c5fd;">def</span> <span style="color: #f8fafc;">binary_search</span>(arr, target):
+    <span style="color: #93c5fd;">left</span>, <span style="color: #93c5fd;">right</span> = <span style="color: #f8fafc;">0</span>, <span style="color: #93c5fd;">len</span>(arr) - <span style="color: #f8fafc;">1</span>
+    
+    <span style="color: #93c5fd;">while</span> left <= right:
+        <span style="color: #93c5fd;">mid</span> = (left + right) // <span style="color: #f8fafc;">2</span>
+        
+        <span style="color: #93c5fd;">if</span> arr[mid] == target:
+            <span style="color: #93c5fd;">return</span> mid
+        <span style="color: #93c5fd;">elif</span> arr[mid] < target:
+            left = mid + <span style="color: #f8fafc;">1</span>
+        <span style="color: #93c5fd;">else</span>:
+            right = mid - <span style="color: #f8fafc;">1</span>
+    
+    <span style="color: #93c5fd;">return</span> -<span style="color: #f8fafc;">1</span>
+
+<span style="color: #64748b;"># Example usage</span>
+<span style="color: #93c5fd;">numbers</span> = [<span style="color: #f8fafc;">1</span>, <span style="color: #f8fafc;">3</span>, <span style="color: #f8fafc;">5</span>, <span style="color: #f8fafc;">7</span>, <span style="color: #f8fafc;">9</span>, <span style="color: #f8fafc;">11</span>]
+<span style="color: #93c5fd;">target</span> = <span style="color: #f8fafc;">7</span>
+<span style="color: #93c5fd;">result</span> = binary_search(numbers, target)
+
+<span style="color: #93c5fd;">print</span>(<span style="color: #86efac;">f"Found at index: {result}"</span>)</pre>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section class="section bg-light">
-    <div class="container">
-      <h2 class="section-title">Choose Your Plan</h2>
-      <p class="section-subtitle">Flexible options to fit your learning needs and budget</p>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="pricing-card animate">
-            <h3 class="pricing-title">Basic</h3>
-            <div class="pricing-price">$19<span class="pricing-period">/month</span></div>
-            <ul class="pricing-features">
-              <li><i class="fas fa-check"></i> Access to all problems</li>
-              <li><i class="fas fa-check"></i> Basic solutions</li>
-              <li><i class="fas fa-check"></i> Progress tracking</li>
-              <li><i class="fas fa-check"></i> Community support</li>
-            </ul>
-            <a href="#" class="btn btn-outline-primary w-100">Get Started</a>
+  <!-- Syllabus Modals -->
+  <!-- Premium Syllabus Modals -->
+  <!-- Modal 1: Python Fundamentals -->
+  <div class="modal fade" id="syllabusModal1" tabindex="-1" aria-labelledby="syllabusModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 overflow-hidden" style="box-shadow: var(--shadow-xl);">
+        <div class="modal-header position-relative p-0">
+          <div class="w-100 bg-gradient-primary text-white p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="modal-title text-serif mb-1" id="syllabusModal1Label">Python Fundamentals</h5>
+                <p class="mb-0 opacity-75">Complete beginner's guide to Python programming</p>
+              </div>
+              <button type="button" class="btn-close btn-close-white opacity-100" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="position-absolute bottom-0 start-0 w-100">
+            <div class="progress" style="height: 4px;">
+              <div class="progress-bar bg-white" style="width: 75%"></div>
+            </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
-          <div class="pricing-card featured animate delay-1">
-            <div class="featured-badge">Most Popular</div>
-            <h3 class="pricing-title">Premium</h3>
-            <div class="pricing-price">$49<span class="pricing-period">/month</span></div>
-            <ul class="pricing-features">
-              <li><i class="fas fa-check"></i> All Basic features</li>
-              <li><i class="fas fa-check"></i> Video explanations</li>
-              <li><i class="fas fa-check"></i> Multiple solutions</li>
-              <li><i class="fas fa-check"></i> Interview tips</li>
-              <li><i class="fas fa-check"></i> Priority support</li>
-            </ul>
-            <a href="#" class="btn btn-primary w-100">Get Started</a>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="pricing-card animate delay-2">
-            <h3 class="pricing-title">Lifetime</h3>
-            <div class="pricing-price">$199<span class="pricing-period">one-time</span></div>
-            <ul class="pricing-features">
-              <li><i class="fas fa-check"></i> All Premium features</li>
-              <li><i class="fas fa-check"></i> Lifetime access</li>
-              <li><i class="fas fa-check"></i> Future updates</li>
-              <li><i class="fas fa-check"></i> 1-on-1 coaching</li>
-              <li><i class="fas fa-check"></i> Certificate</li>
-            </ul>
-            <a href="#" class="btn btn-outline-primary w-100">Get Started</a>
+        <div class="modal-body p-0">
+          <div class="row g-0">
+            <div class="col-md-6 p-4 border-end">
+              <div class="sticky-top" style="top: 1rem;">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="bg-primary bg-opacity-10 text-primary rounded p-2 me-3">
+                    <i class="fas fa-gem fs-4"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-0">Course Includes</h6>
+                    <p class="text-muted small mb-0">Everything you need to master Python</p>
+                  </div>
+                </div>
+
+                <ul class="list-unstyled mb-4">
+                  <li class="mb-3 d-flex">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3 flex-shrink-0">
+                      <i class="fas fa-video"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">35+ Video Lessons</h6>
+                      <p class="text-muted small mb-0">HD quality with downloadable resources</p>
+                    </div>
+                  </li>
+                  <li class="mb-3 d-flex">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3 flex-shrink-0">
+                      <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">50+ Coding Exercises</h6>
+                      <p class="text-muted small mb-0">Hands-on practice with solutions</p>
+                    </div>
+                  </li>
+                  <li class="mb-3 d-flex">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3 flex-shrink-0">
+                      <i class="fas fa-certificate"></i>
+                    </div>
+                    <div>
+                      <h6 class="mb-0">Certificate</h6>
+                      <p class="text-muted small mb-0">Shareable upon completion</p>
+                    </div>
+                  </li>
+                </ul>
+
+                <div class="bg-light rounded p-3 mb-4">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Duration:</span>
+                    <span class="fw-bold">6 Weeks</span>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">Level:</span>
+                    <span class="fw-bold">Beginner</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span class="text-muted">Projects:</span>
+                    <span class="fw-bold">3 Real-world</span>
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <a href="#" class="btn btn-primary w-100 py-3">
+                    <i class="fas fa-gem me-2"></i> Enroll Now - $99
+                  </a>
+                  <p class="small text-muted mt-2 mb-0">30-day money back guarantee</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 p-4">
+              <div class="accordion accordion-flush" id="pythonAccordion">
+                <div class="accordion-item border-0 mb-3">
+                  <h6 class="accordion-header">
+                    <button class="accordion-button bg-light rounded px-3 py-3 collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#pythonModule1">
+                      <i class="fas fa-circle text-primary me-2" style="font-size: 8px;"></i>
+                      <span class="fw-bold">Module 1: Python Basics</span>
+                    </button>
+                  </h6>
+                  <div id="pythonModule1" class="accordion-collapse collapse" data-bs-parent="#pythonAccordion">
+                    <div class="accordion-body px-3 py-2">
+                      <ul class="list-unstyled">
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Introduction to Python
+                        </li>
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Variables and Data Types
+                        </li>
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Operators and Expressions
+                        </li>
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Input and Output</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item border-0 mb-3">
+                  <h6 class="accordion-header">
+                    <button class="accordion-button bg-light rounded px-3 py-3 collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#pythonModule2">
+                      <i class="fas fa-circle text-primary me-2" style="font-size: 8px;"></i>
+                      <span class="fw-bold">Module 2: Control Flow</span>
+                    </button>
+                  </h6>
+                  <div id="pythonModule2" class="accordion-collapse collapse" data-bs-parent="#pythonAccordion">
+                    <div class="accordion-body px-3 py-2">
+                      <ul class="list-unstyled">
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Conditional Statements
+                        </li>
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Loops (for, while)</li>
+                        <li class="py-1"><i class="fas fa-check-circle text-primary me-2"></i> Break and Continue</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional modules... -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Modal 2: DSA Mastery -->
+  <div class="modal fade" id="syllabusModal2" tabindex="-1" aria-labelledby="syllabusModal2Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 overflow-hidden" style="box-shadow: var(--shadow-xl);">
+        <div class="modal-header position-relative p-0">
+          <div class="w-100 bg-gradient-secondary text-white p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="modal-title text-serif mb-1" id="syllabusModal2Label">DSA Mastery</h5>
+                <p class="mb-0 opacity-75">Comprehensive data structures and algorithms course</p>
+              </div>
+              <button type="button" class="btn-close btn-close-white opacity-100" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="position-absolute bottom-0 start-0 w-100">
+            <div class="progress" style="height: 4px;">
+              <div class="progress-bar bg-white" style="width: 45%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body p-0">
+          <!-- Similar structure as Modal 1 with DSA content -->
+          <!-- ... -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: System Design -->
+  <div class="modal fade" id="syllabusModal3" tabindex="-1" aria-labelledby="syllabusModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 overflow-hidden" style="box-shadow: var(--shadow-xl);">
+        <div class="modal-header position-relative p-0">
+          <div class="w-100 bg-gradient-warning text-dark p-4">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="modal-title text-serif mb-1" id="syllabusModal3Label">System Design</h5>
+                <p class="mb-0 opacity-75">Master scalable system architecture</p>
+              </div>
+              <button type="button" class="btn-close opacity-100" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          </div>
+          <div class="position-absolute bottom-0 start-0 w-100">
+            <div class="progress" style="height: 4px;">
+              <div class="progress-bar bg-dark" style="width: 25%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body p-0">
+          <!-- Similar structure as Modal 1 with System Design content -->
+          <!-- ... -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Differentiation Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-6">
+        <span class="text-uppercase text-primary fw-bold letter-spacing-3">The ನಮ್ಮ CODING ಶಾಲೆ Difference</span>
+        <h2 class="section-title mt-3 text-dark">Why We're <span class="text-gradient">Not Like Other</span> Courses
+        </h2>
+        <p class="section-subtitle">Discover what sets us apart in your learning journey</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left Column - Comparison Table -->
+        <div class="col-lg-6">
+          <div class="feature-highlight bg-light rounded-3 p-4 h-100" style="border: 1px solid rgba(0,0,0,0.1);">
+            <div class="comparison-header border-bottom border-light pb-3 mb-4">
+              <div class="row align-items-center">
+                <div class="col-5">
+                  <h5 class="mb-0 text-dark">Features</h5>
+                </div>
+                <div class="col-3 text-center">
+                  <h5 class="mb-0 text-muted">Others</h5>
+                </div>
+                <div class="col-4 text-center">
+                  <h5 class="mb-0 text-primary">ನಮ್ಮ CODING ಶಾಲೆ</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-body">
+              <!-- Row 1 -->
+              <div class="row py-3 border-bottom border-light align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <span>Hands-on Coding Exercises</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <span class="badge bg-light text-muted">Limited</span>
+                </div>
+                <div class="col-4 text-center">
+                  <span class="badge bg-primary bg-opacity-10 text-primary">100+ Problems</span>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="row py-3 border-bottom border-light align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                    <span>Industry Expert Instructors</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <i class="fas fa-times text-danger"></i>
+                </div>
+                <div class="col-4 text-center">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="row py-3 border-bottom border-light align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <span>Real-world Projects</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <span class="badge bg-light text-muted">1-2</span>
+                </div>
+                <div class="col-4 text-center">
+                  <span class="badge bg-primary bg-opacity-10 text-primary">5+ Projects</span>
+                </div>
+              </div>
+
+              <!-- Row 4 -->
+              <div class="row py-3 border-bottom border-light align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-headset"></i>
+                    </div>
+                    <span>1-on-1 Mentorship</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <i class="fas fa-times text-danger"></i>
+                </div>
+                <div class="col-4 text-center">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
+              </div>
+
+              <!-- Row 5 -->
+              <div class="row py-3 border-bottom border-light align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-briefcase"></i>
+                    </div>
+                    <span>Career Support</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <span class="badge bg-light text-muted">Basic</span>
+                </div>
+                <div class="col-4 text-center">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
+              </div>
+
+              <!-- Row 6 -->
+              <div class="row py-3 align-items-center">
+                <div class="col-5">
+                  <div class="d-flex align-items-center">
+                    <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-3">
+                      <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <span>Content Updates</span>
+                  </div>
+                </div>
+                <div class="col-3 text-center">
+                  <i class="fas fa-times text-danger"></i>
+                </div>
+                <div class="col-4 text-center">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Feature Highlights -->
+        <div class="col-lg-6">
+          <div class="row g-4 h-100">
+            <!-- Feature 1 -->
+            <div class="col-md-6">
+              <div class="feature-highlight bg-light rounded-3 p-4 h-100" style="border: 1px solid rgba(0,0,0,0.1);">
+                <div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                  <i class="fas fa-star"></i>
+                </div>
+                <h5 class="text-dark mb-3">Interview-Focused Curriculum</h5>
+                <p class="text-muted mb-0">Our content mirrors actual technical interviews at top tech companies, with
+                  problem patterns we've identified through years of experience.</p>
+              </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-6">
+              <div class="feature-highlight bg-light rounded-3 p-4 h-100" style="border: 1px solid rgba(0,0,0,0.1);">
+                <div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <h5 class="text-dark mb-3">Time-Efficient Learning</h5>
+                <p class="text-muted mb-0">We cut the fluff - our concise explanations and curated problem sets deliver
+                  maximum learning in minimum time.</p>
+              </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-6">
+              <div class="feature-highlight bg-light rounded-3 p-4 h-100" style="border: 1px solid rgba(0,0,0,0.1);">
+                <div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                  <i class="fas fa-layer-group"></i>
+                </div>
+                <h5 class="text-dark mb-3">Spaced Repetition System</h5>
+                <p class="text-muted mb-0">Our intelligent review scheduler ensures you retain concepts long-term
+                  without wasting time on unnecessary repetition.</p>
+              </div>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="col-md-6">
+              <div class="feature-highlight bg-light rounded-3 p-4 h-100" style="border: 1px solid rgba(0,0,0,0.1);">
+                <div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-circle p-3 mb-3">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <h5 class="text-dark mb-3">Performance Analytics</h5>
+                <p class="text-muted mb-0">Detailed metrics track your progress and identify weak areas with actionable
+                  improvement suggestions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
+
+  <!-- Certificate Section -->
+<!-- Certificate Section - Fixed Version -->
+<section class="section bg-light text-dark position-relative">
+  <div class="container position-relative z-index-1">
+    <div class="row align-items-center">
+      <!-- Left Column - Certificate Image -->
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="position-relative certificate-container">
+          <!-- Actual image with fallback -->
+          <img src="./school-certificate-online-design-template.jpg" onerror="this.src='https://via.placeholder.com/600x400/ffffff/0066cc?text=Certificate+Sample'" 
+               class="img-fluid rounded-3 shadow-sm certificate-img" alt="Certificate Sample">
+          <div class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-10 rounded-3"></div>
+          <div class="position-absolute bottom-0 end-0 m-4">
+            <span class="badge bg-white text-primary px-3 py-2 rounded-pill shadow-sm">
+              <i class="fas fa-shield-alt me-2"></i>100% Verifiable
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column - Certificate Content -->
+      <div class="col-lg-6">
+        <div class="ps-lg-5">
+          <span class="text-uppercase text-primary fw-bold letter-spacing-3">Recognition</span>
+          <h2 class="section-title mt-3 text-dark">Earn a <span class="text-gradient">Verified Certificate</span></h2>
+          <p class="section-subtitle text-muted">Showcase your achievement with our industry-recognized certification</p>
+          
+          <div class="mt-5">
+            <!-- Feature 1 -->
+            <div class="d-flex mb-4">
+              <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-4 flex-shrink-0">
+                <i class="fas fa-check"></i>
+              </div>
+              <div>
+                <h5 class="text-dark mb-2">100% Verifiable</h5>
+                <p class="text-muted mb-0">Employers can verify your certificate through our secure online system with a unique ID.</p>
+              </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="d-flex mb-4">
+              <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-4 flex-shrink-0">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <div>
+                <h5 class="text-dark mb-2">Industry Recognized</h5>
+                <p class="text-muted mb-0">Our certificates are valued by tech companies and can boost your job applications.</p>
+              </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="d-flex">
+              <div class="icon-sm bg-primary bg-opacity-10 text-primary rounded-circle p-2 me-4 flex-shrink-0">
+                <i class="fas fa-share-alt"></i>
+              </div>
+              <div>
+                <h5 class="text-dark mb-2">Shareable Credential</h5>
+                <p class="text-muted mb-0">Easily add to LinkedIn profile or share directly with potential employers.</p>
+              </div>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="mt-5 pt-2">
+              <a href="#" class="btn btn-primary px-4 py-3 rounded-pill">
+                <i class="fas fa-award me-2"></i> Learn About Certification
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
 
   <!-- Call to Action -->
   <section class="cta-section">
     <div class="container text-center">
-      <h2 class="cta-title animate">Ready to Master DSA with Python?</h2>
+      <h2 class="cta-title animate">Ready to Master Coding?</h2>
       <p class="cta-subtitle animate delay-1">Join hundreds of students who have improved their coding skills and landed
         their dream jobs</p>
       <div class="animate delay-2">
@@ -1318,10 +2289,11 @@
       <div class="row">
         <div class="col-lg-4 mb-5 mb-lg-0">
           <div class="footer-logo">
-            <i class="fas fa-laptop-code"></i>
-            <span>ನಮ್ಮ Coding ಶಾಲೆ</span>
+            <span>
+              &lt; <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span> /&gt;
+            </span>
           </div>
-          <p class="footer-about">Master Python and Data Structures through practical problem-solving and interview
+          <p class="footer-about">Master Coding through practical problem-solving and interview
             preparation.</p>
           <div class="social-links">
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1406,123 +2378,168 @@
     // Run on scroll
     window.addEventListener('scroll', animateOnScroll);
 
-// Particle.js configuration with improved responsiveness
-document.addEventListener('DOMContentLoaded', function() {
-  if (document.getElementById('particles-js')) {
-    particlesJS('particles-js', {
-      "particles": {
-        "number": {
-          "value": 100,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
-        },
-        "color": {
-          "value": "#ffffff"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          }
-        },
-        "opacity": {
-          "value": 0.4,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 2,
-            "size_min": 0.1,
-            "sync": false
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#ffffff",
-          "opacity": 0.2,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1.5,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "bounce",
-          "bounce": true,
-          "attract": {
-            "enable": false,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
-        }
-      },
-      "interactivity": {
-        "detect_on": "window",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "grab"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 200,
+    // Particle.js configuration with improved responsiveness
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 100,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#ffffff"
+            },
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              }
+            },
+            "opacity": {
+              "value": 0.4,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 3,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 2,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
             "line_linked": {
-              "opacity": 0.5
+              "enable": true,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.2,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1.5,
+              "direction": "none",
+              "random": true,
+              "straight": false,
+              "out_mode": "bounce",
+              "bounce": true,
+              "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
             }
           },
-          "bubble": {
-            "distance": 400,
-            "size": 40,
-            "duration": 2,
-            "opacity": 8,
-            "speed": 3
+          "interactivity": {
+            "detect_on": "window",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 200,
+                "line_linked": {
+                  "opacity": 0.5
+                }
+              },
+              "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+              },
+              "repulse": {
+                "distance": 200,
+                "duration": 0.4
+              },
+              "push": {
+                "particles_nb": 6
+              },
+              "remove": {
+                "particles_nb": 2
+              }
+            }
           },
-          "repulse": {
-            "distance": 200,
-            "duration": 0.4
-          },
-          "push": {
-            "particles_nb": 6
-          },
-          "remove": {
-            "particles_nb": 2
-          }
-        }
-      },
-      "retina_detect": true
-    });
+          "retina_detect": true
+        });
 
-    // Handle window resize
-    window.addEventListener('resize', function() {
-      if (window.pJSDom && window.pJSDom.length > 0) {
-        window.pJSDom[0].pJS.fn.vendors.destroypJS();
-        window.pJSDom[0].pJS.fn.vendors.init();
-        window.pJSDom[0].pJS.fn.vendors.start();
+        // Handle window resize
+        window.addEventListener('resize', function () {
+          if (window.pJSDom && window.pJSDom.length > 0) {
+            window.pJSDom[0].pJS.fn.vendors.destroypJS();
+            window.pJSDom[0].pJS.fn.vendors.init();
+            window.pJSDom[0].pJS.fn.vendors.start();
+          }
+        });
       }
     });
-  }
-});
-</script>
+
+    // Course scroll effect
+    document.addEventListener('DOMContentLoaded', function () {
+      const scroller = document.querySelector('.courses-scroller');
+      const container = document.querySelector('.courses-container');
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
+
+      if (scroller && container && prevBtn && nextBtn) {
+        const scrollAmount = 350;
+
+        prevBtn.addEventListener('click', () => {
+          scroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+          scroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        // Hide/show buttons based on scroll position
+        scroller.addEventListener('scroll', () => {
+          prevBtn.style.display = scroller.scrollLeft > 0 ? 'flex' : 'none';
+          nextBtn.style.display = scroller.scrollLeft < (container.scrollWidth - scroller.clientWidth) ? 'flex' : 'none';
+        });
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      new Swiper('.testimonial-carousel', {
+        loop: true,
+        autoplay: {
+          delay: 5000,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 1,
+            spaceBetween: 20
+          }
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
