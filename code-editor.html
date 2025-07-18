@@ -48,10 +48,54 @@
     }
 
 
+    /* Top Bar Styles */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      z-index: 900;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      justify-content: space-between;
+    }
+
+    .top-bar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin: 0;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .top-bar-menu-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.2s ease;
+    }
+
+    .top-bar-menu-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
     /* Sidebar Styles */
     .sidebar {
       position: fixed;
-      top: 0;
+      top: 56px;
       left: 0;
       bottom: 0;
       width: var(--sidebar-width);
@@ -59,13 +103,15 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       color: white;
-      padding: 1rem;
+      padding: 0;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       border-right: 1px solid rgba(255, 255, 255, 0.08);
       z-index: 1000;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .sidebar.active {
@@ -74,7 +120,7 @@
 
     .sidebar-overlay {
       position: fixed;
-      top: 0;
+      top: 56px;
       left: 0;
       right: 0;
       bottom: 0;
@@ -91,9 +137,16 @@
     }
 
     .sidebar-header {
-      padding: 1rem 0.5rem;
-      margin-bottom: 1rem;
+      padding: 1rem;
+      margin-bottom: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.98);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .sidebar-header h3 {
@@ -104,6 +157,13 @@
       gap: 0.5rem;
       color: white;
       font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
     }
 
     .sidebar-menu {
@@ -143,7 +203,7 @@
     }
 
     .sidebar-footer {
-      position: absolute;
+      position: sticky;
       bottom: 0;
       left: 0;
       right: 0;
@@ -152,19 +212,49 @@
       text-align: center;
       font-size: 0.8rem;
       color: rgba(255, 255, 255, 0.5);
+      background: rgba(15, 23, 42, 0.98);
     }
 
     .sidebar-title {
       font-family: 'Playfair Display', serif;
-      margin: 0 0.5rem;
+      margin: 0;
       font-size: 1rem;
     }
-
 
     .brand-highlight {
       color: var(--primary-light);
       font-family: 'Inter', sans-serif;
       font-weight: 700;
+    }
+
+    /* Sidebar sections */
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 1rem 0 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-submenu {
+      list-style: none;
+      padding-left: 1.5rem;
+      margin: 0.25rem 0;
+    }
+
+    .sidebar-submenu li {
+      margin-bottom: 0.1rem;
+    }
+
+    .sidebar-submenu a {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
     }
 
 
@@ -378,16 +468,22 @@
       .console-container {
         height: 150px;
       }
+
+      .main-content {
+        margin-top: 3.5rem;
+      }
     }
 
     /* Desktop styles */
     @media (min-width: 992px) {
-      .sidebar {
-        transform: translateX(0);
+      .top-bar {
+        display: none;
       }
 
-      .menu-toggle {
-        display: none;
+      .sidebar {
+        top: 0;
+        height: 100vh;
+        transform: translateX(0);
       }
 
       .sidebar-overlay {
@@ -396,34 +492,151 @@
 
       .main-content {
         margin-left: var(--sidebar-width);
+        padding-top: .5rem;
+      }
+
+      .problem-info {
+        padding: .5rem;
       }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Top Bar (for mobile) -->
+  <div class="top-bar" id="topBar">
+    <button class="top-bar-menu-btn" id="topBarMenuBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="top-bar-menu-btn" id="topBarCloseBtn" style="display: none;">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <!-- Sidebar Overlay (for mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h3 class="sidebar-title">
-        &lt; <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>  /&gt;
+        <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>
       </h3>
     </div>
-    <ul class="sidebar-menu">
-      <li><a href="./index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="./problem-list.html"><i class="fas fa-list-check"></i> Problem List</a></li>
-      <li><a href="./notes.html"><i class="fas fa-book"></i> Notes</a></li>
-      <li><a href="./code-editor.html" class="active"><i class="fas fa-laptop-code"></i> Code Editor</a></li>
-    </ul>
+
+    <div class="sidebar-content">
+
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Python Basics</p>
+        <ul class="sidebar-menu">
+          <li>
+            <a href="./introduction.html" >
+              <i class="fas fa-check-circle text-success status-icon"></i>
+              Introduction
+            </a>
+          </li>
+          <li class="has-submenu">
+            <a href="#" >
+              <i class="far fa-circle status-icon"></i>
+              Variables & Types
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Numbers
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-check-circle text-success status-icon"></i>
+                  Strings
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Lists
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Dictionaries
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="#" >
+              <i class="fas fa-lock status-icon"></i>
+              Control Flow
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  If-Else
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  Loops
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  Match-Case
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" >
+              <!-- <i class="fas fa-caret-right toggle-icon"></i> -->
+              <i class="fas fa-lock status-icon"></i>
+              Functions
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Main Menu</p>
+        <ul class="sidebar-menu">
+          <li><a href="./problem-list.html"><i class="fas fa-list-check"></i> Problem List</a></li>
+          <li><a href="./code-editor.html" class="active"><i class="fas fa-laptop-code"></i> Code Editor</a></li>
+        </ul>
+      </div>
+
+      <!-- <div class="sidebar-section">
+              <p class="sidebar-section-title">Data Structures</p>
+              <ul class="sidebar-menu">
+                  <li><a href="#"><i class="fas fa-layer-group"></i> Arrays</a></li>
+                  <li><a href="#"><i class="fas fa-link"></i> Linked Lists</a></li>
+                  <li><a href="#"><i class="fas fa-tree"></i> Trees</a></li>
+                  <li><a href="#"><i class="fas fa-sitemap"></i> Graphs</a></li>
+              </ul>
+          </div>
+
+          <div class="sidebar-section">
+              <p class="sidebar-section-title">Algorithms</p>
+              <ul class="sidebar-menu">
+                  <li><a href="#"><i class="fas fa-search"></i> Searching</a></li>
+                  <li><a href="#"><i class="fas fa-sort-amount-down"></i> Sorting</a></li>
+                  <li><a href="#"><i class="fas fa-route"></i> Path Finding</a></li>
+                  <li><a href="#"><i class="fas fa-chess"></i> Dynamic Programming</a></li>
+              </ul>
+          </div> -->
+    </div>
+
     <div class="sidebar-footer">
       <p>DSA Tracker v1.0</p>
     </div>
   </div>
-
-  <!-- Mobile Menu Toggle Button -->
-  <button class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
 
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
@@ -688,6 +901,54 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
         consoleOutput.innerHTML = `[${new Date().toLocaleTimeString()}] Reset ${currentLanguage} template.\n`;
       });
 
+      // Sidebar toggle functionality
+      const topBarMenuBtn = document.getElementById('topBarMenuBtn');
+      const topBarCloseBtn = document.getElementById('topBarCloseBtn');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      topBarMenuBtn.addEventListener('click', () => {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        topBarMenuBtn.style.display = 'none';
+        topBarCloseBtn.style.display = 'block';
+      });
+
+      topBarCloseBtn.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        topBarMenuBtn.style.display = 'block';
+        topBarCloseBtn.style.display = 'none';
+      });
+
+      sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        topBarMenuBtn.style.display = 'block';
+        topBarCloseBtn.style.display = 'none';
+      });
+
+      // Add this to your existing JavaScript
+      document.querySelectorAll('.sidebar-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          const parentLi = this.closest('li');
+
+          if (parentLi.classList.contains('has-submenu')) {
+            parentLi.classList.toggle('active');
+
+            // Rotate the caret icon
+            const icon = this.querySelector('.toggle-icon');
+            if (parentLi.classList.contains('active')) {
+              icon.style.transform = 'rotate(90deg)';
+            } else {
+              icon.style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+      });
+
+
       // Language selector change handler
       languageSelector.addEventListener('change', (e) => {
         currentLanguage = e.target.value;
@@ -704,20 +965,7 @@ Memory Usage: ${data.run.memory || 'N/A'}\n`;
       });
     });
 
-    // Sidebar toggle functionality
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      sidebarOverlay.classList.toggle('active');
-    });
-
-    sidebarOverlay.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      sidebarOverlay.classList.remove('active');
-    });
   </script>
 </body>
 

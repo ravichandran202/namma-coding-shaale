@@ -47,122 +47,265 @@
       overflow-x: hidden;
     }
 
-    /* Sidebar Styles */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: var(--sidebar-width);
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
-      padding: 1rem;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-      z-index: 1000;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
-    }
+        /* Top Bar Styles */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            z-index: 900;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            justify-content: space-between;
+        }
 
-    .sidebar.active {
-      transform: translateX(0);
-    }
+        .top-bar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
 
-    .sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
+        .top-bar-menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
 
-    .sidebar-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+        .top-bar-menu-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
-    .sidebar-header {
-      padding: 1rem 0.5rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            padding: 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .sidebar-header h3 {
-      font-weight: 700;
-      margin-bottom: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: white;
-      font-family: 'Playfair Display', serif;
-    }
+        .sidebar.active {
+            transform: translateX(0);
+        }
 
-    .sidebar-menu {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+        .sidebar-overlay {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
 
-    .sidebar-menu li {
-      margin-bottom: 0.25rem;
-    }
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    .sidebar-menu a {
-      display: flex;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
+        .sidebar-header {
+            padding: 1rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background: rgba(15, 23, 42, 0.98);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .sidebar-menu a:hover {
-      color: white !important;
-      background: rgba(255, 255, 255, 0.05);
-    }
+        .sidebar-header h3 {
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
 
-    .sidebar-menu a.active {
-      color: white !important;
-      background: rgba(37, 99, 235, 0.15);
-    }
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
 
-    .sidebar-menu a i {
-      margin-right: 0.75rem;
-      width: 20px;
-      text-align: center;
-    }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-    .sidebar-footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      text-align: center;
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
+        .sidebar-menu li {
+            margin-bottom: 0.25rem;
+        }
 
-    .sidebar-title {
-      font-family: 'Playfair Display', serif;
-      margin: 0 0.5rem;
-      font-size: 1rem;
-    }
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-menu a.active {
+            color: white !important;
+            background: rgba(37, 99, 235, 0.15);
+        }
+
+        .sidebar-menu a i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(15, 23, 42, 0.98);
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .brand-highlight {
+            color: var(--primary-light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Sidebar sections */
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 1rem 0 0.5rem 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-submenu {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin: 0.25rem 0;
+        }
+
+        .sidebar-submenu li {
+            margin-bottom: 0.1rem;
+        }
+
+        .sidebar-submenu a {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
 
     .brand-highlight {
       color: var(--primary-light);
       font-family: 'Inter', sans-serif;
       font-weight: 700;
+    }
+
+    /* Sidebar sections */
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 1rem 0 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-submenu {
+      list-style: none;
+      padding-left: 1.5rem;
+      margin: 0.25rem 0;
+    }
+
+    .sidebar-submenu li {
+      margin-bottom: 0.1rem;
+    }
+
+    .sidebar-submenu a {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
     }
 
 
@@ -171,30 +314,6 @@
       padding: 1rem;
       transition: transform 0.3s ease;
       height: 100%;
-    }
-
-    /* Mobile Menu Toggle Button */
-    .menu-toggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      z-index: 1100;
-      background: var(--primary);
-      color: white;
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    .menu-toggle:hover {
-      background: var(--primary-hover);
     }
 
     /* Status Styles */
@@ -489,16 +608,26 @@
       .progress-overview {
         padding: 1rem;
       }
+
+
+    }
+
+    @media (max-width: 992px) {
+      .main-content {
+        margin-top: 4rem;
+      }
     }
 
     /* Desktop styles */
     @media (min-width: 992px) {
-      .sidebar {
-        transform: translateX(0);
+      .top-bar {
+        display: none;
       }
 
-      .menu-toggle {
-        display: none;
+      .sidebar {
+        top: 0;
+        height: 100vh;
+        transform: translateX(0);
       }
 
       .sidebar-overlay {
@@ -507,6 +636,7 @@
 
       .main-content {
         margin-left: var(--sidebar-width);
+        padding-top: 1rem;
       }
     }
 
@@ -784,6 +914,16 @@
 </head>
 
 <body>
+  <!-- Top Bar (for mobile) -->
+  <div class="top-bar" id="topBar">
+    <button class="top-bar-menu-btn" id="topBarMenuBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+    <button class="top-bar-menu-btn" id="topBarCloseBtn" style="display: none;">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
   <!-- Sidebar Overlay (for mobile) -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -791,137 +931,236 @@
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <h3 class="sidebar-title">
-        &lt; <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span> /&gt;
+        <span class="brand-text"> ನಮ್ಮ <span class="brand-highlight">CODING</span> ಶಾಲೆ</span>
       </h3>
     </div>
-    <ul class="sidebar-menu">
-      <li><a href="./index.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="./problem-list.html" class="active"><i class="fas fa-list-check"></i> Problem List</a></li>
-      <li><a href="./notes.html"><i class="fas fa-book"></i> Notes</a></li>
-      <li><a href="./code-editor.html"><i class="fas fa-laptop-code"></i> Code Editor</a></li>
-    </ul>
+
+    <div class="sidebar-content">
+
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Python Basics</p>
+        <ul class="sidebar-menu">
+          <li>
+            <a href="./introduction.html">
+              <i class="fas fa-check-circle text-success status-icon"></i>
+              Introduction
+            </a>
+          </li>
+          <li class="has-submenu">
+            <a href="#" class="sidebar-toggle">
+              <i class="far fa-circle status-icon"></i>
+              Variables & Types
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Numbers
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-check-circle text-success status-icon"></i>
+                  Strings
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Lists
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="far fa-circle status-icon"></i>
+                  Dictionaries
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="has-submenu">
+            <a href="#" class="sidebar-toggle">
+              <i class="fas fa-lock status-icon"></i>
+              Control Flow
+            </a>
+            <ul class="sidebar-submenu">
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  If-Else
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  Loops
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fas fa-lock status-icon"></i>
+                  Match-Case
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="sidebar-toggle">
+              <!-- <i class="fas fa-caret-right toggle-icon"></i> -->
+              <i class="fas fa-lock status-icon"></i>
+              Functions
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-section-title">Main Menu</p>
+        <ul class="sidebar-menu">
+          <li><a href="./problem-list.html" class="active"><i class="fas fa-list-check"></i> Problem List</a></li>
+          <li><a href="./code-editor.html"><i class="fas fa-laptop-code"></i> Code Editor</a></li>
+        </ul>
+      </div>
+
+      <!-- <div class="sidebar-section">
+              <p class="sidebar-section-title">Data Structures</p>
+              <ul class="sidebar-menu">
+                  <li><a href="#"><i class="fas fa-layer-group"></i> Arrays</a></li>
+                  <li><a href="#"><i class="fas fa-link"></i> Linked Lists</a></li>
+                  <li><a href="#"><i class="fas fa-tree"></i> Trees</a></li>
+                  <li><a href="#"><i class="fas fa-sitemap"></i> Graphs</a></li>
+              </ul>
+          </div>
+
+          <div class="sidebar-section">
+              <p class="sidebar-section-title">Algorithms</p>
+              <ul class="sidebar-menu">
+                  <li><a href="#"><i class="fas fa-search"></i> Searching</a></li>
+                  <li><a href="#"><i class="fas fa-sort-amount-down"></i> Sorting</a></li>
+                  <li><a href="#"><i class="fas fa-route"></i> Path Finding</a></li>
+                  <li><a href="#"><i class="fas fa-chess"></i> Dynamic Programming</a></li>
+              </ul>
+          </div> -->
+    </div>
+
     <div class="sidebar-footer">
       <p>DSA Tracker v1.0</p>
     </div>
   </div>
 
-  <!-- Mobile Menu Toggle Button -->
-  <button class="menu-toggle" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
-
   <!-- Main Content -->
   <div class="main-content" id="mainContent">
     <div class="container-fluid">
 
-<!-- Premium Progress Dashboard -->
-<div class="premium-progress-dashboard mb-4">
-  <div class="premium-card">
-    <div class="progress-card-header">
-      <div>
-        <h3 class="progress-card-title mb-1">
-          <i class="fas fa-trophy me-2" style="color: #f59e0b;"></i> 
-          Coding Mastery Progress
-        </h3>
-        <p class="text-muted small mb-0">Track your DSA journey with premium analytics</p>
-      </div>
-      <div class="progress-card-icon">
-        <i class="fas fa-crown"></i>
-      </div>
-    </div>
 
-    <div class="progress-card-body">
-      <div class="row">
-        <!-- Radial Progress -->
-        <div class="col-md-4 border-end pe-md-4 d-flex flex-column align-items-center">
-          <div class="progress-radial">
-            <div class="radial-circle">
-              <svg viewBox="0 0 36 36" class="circular-chart">
-                <path class="circle-bg"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path class="circle-fill" stroke-dasharray="0, 100"
-                  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <div class="radial-content">
-                <div class="radial-value" id="total-problems-count">0</div>
-                <div class="radial-total">of <span id="total-problems-total">100</span></div>
-              </div>
+      <!-- Premium Progress Dashboard -->
+      <div class="premium-progress-dashboard mb-4">
+        <div class="premium-card">
+          <div class="progress-card-header">
+            <div>
+              <h3 class="progress-card-title mb-1">
+                <i class="fas fa-trophy me-2" style="color: #f59e0b;"></i>
+                Coding Mastery Progress
+              </h3>
+              <p class="text-muted small mb-0">Track your DSA journey with premium analytics</p>
+            </div>
+            <div class="progress-card-icon">
+              <i class="fas fa-crown"></i>
             </div>
           </div>
 
+          <div class="progress-card-body">
+            <div class="row">
+              <!-- Radial Progress -->
+              <div class="col-md-4 border-end pe-md-4 d-flex flex-column align-items-center">
+                <div class="progress-radial">
+                  <div class="radial-circle">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                      <path class="circle-bg"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path class="circle-fill" stroke-dasharray="0, 100"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="radial-content">
+                      <div class="radial-value" id="total-problems-count">0</div>
+                      <div class="radial-total">of <span id="total-problems-total">100</span></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Difficulty Progress Bars -->
+              <div class="col-md-8 ps-md-4">
+                <div class="difficulty-progress">
+                  <div class="difficulty-item">
+                    <div class="difficulty-info">
+                      <div class="d-flex align-items-center">
+                        <span class="badge bg-success bg-opacity-10 text-success fs-6 rounded-pill px-3 py-1 me-2">
+                          <i class="fas fa-check-circle me-1"></i> Easy
+                        </span>
+                        <small class="text-muted">
+                          <span id="easy-count">0</span>/<span id="easy-total">40</span> solved
+                        </small>
+                      </div>
+                      <small class="fw-bold text-success" id="easy-percent">0%</small>
+                    </div>
+                    <div class="progress-bar-container">
+                      <div id="easy-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                  </div>
+
+                  <div class="difficulty-item">
+                    <div class="difficulty-info">
+                      <div class="d-flex align-items-center">
+                        <span class="badge bg-warning bg-opacity-10 text-warning fs-6 rounded-pill px-3 py-1 me-2">
+                          <i class="fas fa-exclamation-circle me-1"></i> Medium
+                        </span>
+                        <small class="text-muted">
+                          <span id="medium-count">0</span>/<span id="medium-total">40</span> solved
+                        </small>
+                      </div>
+                      <small class="fw-bold text-warning" id="medium-percent">0%</small>
+                    </div>
+                    <div class="progress-bar-container">
+                      <div id="medium-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                  </div>
+
+                  <div class="difficulty-item">
+                    <div class="difficulty-info">
+                      <div class="d-flex align-items-center">
+                        <span class="badge bg-danger bg-opacity-10 text-danger fs-6 rounded-pill px-3 py-1 me-2">
+                          <i class="fas fa-fire me-1"></i> Hard
+                        </span>
+                        <small class="text-muted">
+                          <span id="hard-count">0</span>/<span id="hard-total">20</span> solved
+                        </small>
+                      </div>
+                      <small class="fw-bold text-danger" id="hard-percent">0%</small>
+                    </div>
+                    <div class="progress-bar-container">
+                      <div id="hard-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-bolt text-warning me-2"></i>
+                    <small class="text-muted">Daily streak: <strong class="text-dark">5 days</strong></small>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-star text-primary me-2"></i>
+                    <small class="text-muted">Premium member</small>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-
-        <!-- Difficulty Progress Bars -->
-        <div class="col-md-8 ps-md-4">
-          <div class="difficulty-progress">
-            <div class="difficulty-item">
-              <div class="difficulty-info">
-                <div class="d-flex align-items-center">
-                  <span class="badge bg-success bg-opacity-10 text-success fs-6 rounded-pill px-3 py-1 me-2">
-                    <i class="fas fa-check-circle me-1"></i> Easy
-                  </span>
-                  <small class="text-muted">
-                    <span id="easy-count">0</span>/<span id="easy-total">40</span> solved
-                  </small>
-                </div>
-                <small class="fw-bold text-success" id="easy-percent">0%</small>
-              </div>
-              <div class="progress-bar-container">
-                <div id="easy-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div class="difficulty-item">
-              <div class="difficulty-info">
-                <div class="d-flex align-items-center">
-                  <span class="badge bg-warning bg-opacity-10 text-warning fs-6 rounded-pill px-3 py-1 me-2">
-                    <i class="fas fa-exclamation-circle me-1"></i> Medium
-                  </span>
-                  <small class="text-muted">
-                    <span id="medium-count">0</span>/<span id="medium-total">40</span> solved
-                  </small>
-                </div>
-                <small class="fw-bold text-warning" id="medium-percent">0%</small>
-              </div>
-              <div class="progress-bar-container">
-                <div id="medium-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <div class="difficulty-item">
-              <div class="difficulty-info">
-                <div class="d-flex align-items-center">
-                  <span class="badge bg-danger bg-opacity-10 text-danger fs-6 rounded-pill px-3 py-1 me-2">
-                    <i class="fas fa-fire me-1"></i> Hard
-                  </span>
-                  <small class="text-muted">
-                    <span id="hard-count">0</span>/<span id="hard-total">20</span> solved
-                  </small>
-                </div>
-                <small class="fw-bold text-danger" id="hard-percent">0%</small>
-              </div>
-              <div class="progress-bar-container">
-                <div id="hard-progress-bar" class="progress-bar-fill" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
-            <div class="d-flex align-items-center">
-              <i class="fas fa-bolt text-warning me-2"></i>
-              <small class="text-muted">Daily streak: <strong class="text-dark">5 days</strong></small>
-            </div>
-            <div class="d-flex align-items-center">
-              <i class="fas fa-star text-primary me-2"></i>
-              <small class="text-muted">Premium member</small>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </div>
-</div>
 
 
       <!-- Search and Filters -->
@@ -2033,10 +2272,23 @@
             bar: '#hard-progress-bar'
           }
         },
-        sidebar: '#sidebar',
+
         mainContent: '#mainContent',
-        menuToggle: '#menuToggle',
-        sidebarOverlay: '#sidebarOverlay'
+      };
+
+      const saveSectionState = (sectionId, isExpanded) => {
+        const sectionStates = JSON.parse(localStorage.getItem('sectionStates') || '{}');
+        sectionStates[sectionId] = isExpanded;
+        localStorage.setItem('sectionStates', JSON.stringify(sectionStates));
+      };
+
+      const getSectionState = (sectionId) => {
+        const sectionStates = JSON.parse(localStorage.getItem('sectionStates') || '{}');
+        return sectionStates[sectionId] || false; // Default to collapsed
+      };
+
+      const clearSectionStates = () => {
+        localStorage.removeItem('sectionStates');
       };
 
       const renderProblems = (problems) => {
@@ -2071,16 +2323,19 @@
           const header = document.createElement('div');
           header.className = 'section-header';
           header.innerHTML = `
-            <h3>
-              ${section.title}
-              <span class="badge bg-primary rounded-pill">${problems.length} problems</span>
-            </h3>
-          `;
+          <h3>
+            ${section.title}
+            <span class="badge bg-primary rounded-pill">${problems.length} problems</span>
+          </h3>
+        `;
 
           // Section content
           const content = document.createElement('div');
           content.className = 'section-content';
-          content.style.display = 'none'; // Collapsed by default
+
+          // Check localStorage for saved state
+          const isExpanded = getSectionState(sectionId);
+          content.style.display = isExpanded ? 'block' : 'none';
 
           // Problems table wrapper for horizontal scrolling
           const tableWrapper = document.createElement('div');
@@ -2090,59 +2345,59 @@
           const table = document.createElement('div');
           table.className = 'problems-table shadow-sm';
           table.innerHTML = `
-            <table class="table table-hover mb-0">
-              <thead>
-                <tr>
-                  <th width="50">#</th>
-                  <th width="80">Status</th>
-                  <th>Problem</th>
-                  <th width="120">Difficulty</th>
-                  <th width="120">Solution</th>
-                  <th width="120">Video</th>
-                  <th width="120">Solve</th>
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th width="50">#</th>
+                <th width="80">Status</th>
+                <th>Problem</th>
+                <th width="120">Difficulty</th>
+                <th width="120">Solution</th>
+                <th width="120">Video</th>
+                <th width="120">Solve</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${problems.map((problem, index) => `
+                <tr data-problem-id="${problem.id}">
+                  <td>${index + 1}</td>
+                  <td>
+                    <span class="status status-${problem.status}" 
+                          title="${problem.status.charAt(0).toUpperCase() + problem.status.slice(1)}"
+                          aria-label="Status: ${problem.status}"
+                          data-problem-id="${problem.id}"></span>
+                  </td>
+                  <td>
+                    <div class="problem-title">${problem.title}</div>
+                    <div class="text-muted small mt-1">
+                      ${problem.tags.join(', ')}
+                    </div>
+                  </td>
+                  <td>
+                    <span class="difficulty ${problem.difficulty}">
+                      ${problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1)}
+                    </span>
+                  </td>
+                  <td>
+                    <a href="${problem.solution}" target="_blank" class="text-decoration-none text-primary">
+                      <i class="fas fa-code me-1"></i> Solution
+                    </a>
+                  </td>
+                  <td>
+                    <a href="${problem.video}" target="_blank" class="text-decoration-none text-primary">
+                      <i class="fas fa-video me-1"></i> Video
+                    </a>
+                  </td>
+                  <td>
+                    <a href="problem-solver.html?id=${problem.id}" class="btn btn-success btn-sm">
+                      <i class="fas fa-terminal me-1"></i> Solve
+                    </a>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                ${problems.map((problem, index) => `
-                  <tr data-problem-id="${problem.id}">
-                    <td>${index + 1}</td>
-                    <td>
-                      <span class="status status-${problem.status}" 
-                            title="${problem.status.charAt(0).toUpperCase() + problem.status.slice(1)}"
-                            aria-label="Status: ${problem.status}"
-                            data-problem-id="${problem.id}"></span>
-                    </td>
-                    <td>
-                      <div class="problem-title">${problem.title}</div>
-                      <div class="text-muted small mt-1">
-                        ${problem.tags.join(', ')}
-                      </div>
-                    </td>
-                    <td>
-                      <span class="difficulty ${problem.difficulty}">
-                        ${problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1)}
-                      </span>
-                    </td>
-                    <td>
-                      <a href="${problem.solution}" target="_blank" class="text-decoration-none text-primary">
-                        <i class="fas fa-code me-1"></i> Solution
-                      </a>
-                    </td>
-                    <td>
-                      <a href="${problem.video}" target="_blank" class="text-decoration-none text-primary">
-                        <i class="fas fa-video me-1"></i> Video
-                      </a>
-                    </td>
-                    <td>
-                      <a href="problem-solver.html?id=${problem.id}" class="btn btn-success btn-sm">
-                        <i class="fas fa-terminal me-1"></i> Solve
-                      </a>
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          `;
+              `).join('')}
+            </tbody>
+          </table>
+        `;
 
           tableWrapper.appendChild(table);
           content.appendChild(tableWrapper);
@@ -2152,7 +2407,9 @@
 
           // Add click event to toggle section content
           header.addEventListener('click', () => {
-            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            const isExpanded = content.style.display === 'none';
+            content.style.display = isExpanded ? 'block' : 'none';
+            saveSectionState(sectionId, isExpanded);
           });
         }
 
@@ -2161,11 +2418,11 @@
           const notesElement = document.createElement('div');
           notesElement.className = 'notes-section mb-4';
           notesElement.innerHTML = `
-            <h4><i class="fas fa-clipboard me-2"></i>${section.title}</h4>
-            <div class="notes-content">
-              ${section.content || ''}
-            </div>
-          `;
+          <h4><i class="fas fa-clipboard me-2"></i>${section.title}</h4>
+          <div class="notes-content">
+            ${section.content || ''}
+          </div>
+        `;
           container.appendChild(notesElement);
         });
 
@@ -2231,6 +2488,7 @@
         document.querySelector(hardElem.bar).style.width = `${progress.hard.percent}%`;
         document.querySelector('#hard-percent').textContent = `${progress.hard.percent}%`;
       };
+
       const updateActiveFilter = (activeFilter) => {
         document.querySelectorAll(DOMStrings.filterButtons).forEach(btn => {
           btn.classList.remove('btn-primary', 'active');
@@ -2251,11 +2509,6 @@
         return document.querySelector(DOMStrings.searchInput).value.trim();
       };
 
-      const toggleSidebar = () => {
-        document.querySelector(DOMStrings.sidebar).classList.toggle('active');
-        document.querySelector(DOMStrings.sidebarOverlay).classList.toggle('active');
-      };
-
       return {
         DOMStrings,
         renderProblems,
@@ -2263,7 +2516,7 @@
         updateActiveFilter,
         clearSearch,
         getSearchInput,
-        toggleSidebar
+        clearSectionStates
       };
     })();
 
@@ -2288,13 +2541,6 @@
         document.querySelector(UIController.DOMStrings.resetBtn)
           .addEventListener('click', resetFilters);
 
-        // Menu toggle button
-        document.querySelector(UIController.DOMStrings.menuToggle)
-          .addEventListener('click', UIController.toggleSidebar);
-
-        // Sidebar overlay click
-        document.querySelector(UIController.DOMStrings.sidebarOverlay)
-          .addEventListener('click', UIController.toggleSidebar);
       };
 
       const filterProblems = () => {
@@ -2308,6 +2554,7 @@
       const resetFilters = () => {
         UIController.clearSearch();
         UIController.updateActiveFilter('all');
+        UIController.clearSectionStates(); // Clear saved section states
         filterProblems();
       };
 
@@ -2324,6 +2571,56 @@
         init
       };
     })(ProblemData, UIController);
+
+
+       // Sidebar toggle functionality
+       const topBarMenuBtn = document.getElementById('topBarMenuBtn');
+        const topBarCloseBtn = document.getElementById('topBarCloseBtn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        topBarMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            topBarMenuBtn.style.display = 'none';
+            topBarCloseBtn.style.display = 'block';
+        });
+
+        topBarCloseBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            topBarMenuBtn.style.display = 'block';
+            topBarCloseBtn.style.display = 'none';
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            topBarMenuBtn.style.display = 'block';
+            topBarCloseBtn.style.display = 'none';
+        });
+
+        // Add this to your existing JavaScript
+        document.querySelectorAll('.sidebar-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                const parentLi = this.closest('li');
+
+                if (parentLi.classList.contains('has-submenu')) {
+                    parentLi.classList.toggle('active');
+
+                    // Rotate the caret icon
+                    const icon = this.querySelector('.toggle-icon');
+                    if (parentLi.classList.contains('active')) {
+                        icon.style.transform = 'rotate(90deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+        });
+
+        // Handle window resize
 
     // Initialize the application
     document.addEventListener('DOMContentLoaded', AppController.init);
