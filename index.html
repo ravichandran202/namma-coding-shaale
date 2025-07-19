@@ -542,6 +542,11 @@
       color: var(--dark);
     }
 
+    .premium-course-title {
+      color: var(--light);
+      font-size: 1.3rem;
+    }
+
     .course-desc {
       color: var(--gray);
       font-size: 0.95rem;
@@ -1316,7 +1321,7 @@
       }
 
       .course-card {
-        width: 280px;
+        width: 320px;
       }
 
       .course-nav-btn {
@@ -1392,6 +1397,151 @@
       scroll-behavior: smooth;
     }
 
+    /* Premium Course Card Styles */
+    .premium-edition {
+      position: relative;
+      overflow: hidden;
+      border: none;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      color: #fff;
+    }
+
+    .premium-edition:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .bg-gold {
+      background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+      color: #1a1a2e;
+    }
+
+    .text-gold {
+      color: #FFD700;
+    }
+
+    .course-badge.bg-gold {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .exclusive-ribbon {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      width: 120px;
+      padding: 3px 0;
+      background: #e63946;
+      color: white;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .premium-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .premium-features li {
+      margin-bottom: 5px;
+    }
+
+    .btn-premium-gold {
+      background: linear-gradient(135deg, #FFD700 0%, #D4AF37 100%);
+      color: #1a1a2e !important;
+      border: none;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-premium-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-premium-gold:active {
+      transform: translateY(0);
+    }
+
+    .premium-limited-time-offer {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .limited-time-offer {
+      background: rgba(0, 132, 255, 0.1);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(14, 12, 0, 0.2);
+    }
+
+    .timer {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .timer span {
+      display: inline-block;
+      min-width: 25px;
+      text-align: center;
+    }
+
+    .tracking-wide {
+      letter-spacing: 0.5px;
+    }
+
+    /* Glow Effects */
+    .premium-glow-1,
+    .premium-glow-2 {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    .premium-glow-1 {
+      width: 100px;
+      height: 100px;
+      background: #FFD700;
+      top: -30px;
+      right: -30px;
+    }
+
+    .premium-glow-2 {
+      width: 150px;
+      height: 150px;
+      background: #4cc9f0;
+      bottom: -50px;
+      left: -50px;
+    }
+
+    .course-content {
+      position: relative;
+      z-index: 1;
+    }
+
 
     /* Navbar scroll effect
     window.addEventListener('scroll', function() {
@@ -1439,7 +1589,7 @@
             </a>
           </li>
           <li class="nav-item ms-lg-3">
-            <a class="btn btn-premium" href="./login.html">
+            <a class="btn btn-premium" href="#course-section">
               <i class="fas fa-gem me-1"></i> Enroll Now
             </a>
           </li>
@@ -1456,14 +1606,11 @@
           ಶಾಲೆ</span> /&gt;</h1>
       <p class="hero-subtitle animate delay-1">Learn coding by solving 100+ problems with expert guidance and
         real-world interview experience. Build confidence and crack your dream tech job.</p>
-      <div class="animate delay-2">
-        <a href="./index.html" class="btn btn-hero">Start Learning <i class="fas fa-arrow-right ms-2"></i></a>
-      </div>
     </div>
   </section>
 
   <!-- Premium Courses Section -->
-  <section class="section">
+  <section class="section" id="course-section">
 
     <div class="container">
       <div class="text-center mb-6">
@@ -1484,6 +1631,76 @@
         <div class="courses-scroller">
           <div class="courses-container">
             <!-- Course 1 -->
+            <div class="course-card animate premium-edition">
+              <div class="course-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                  alt="Python Basics" class="course-img">
+                <div class="course-overlay"></div>
+                <div class="course-badge bg-gold">Premium</div>
+                <div class="exclusive-ribbon">Exclusive</div>
+                <div class="course-level">
+                  <span class="level-dot active"></span>
+                  <span class="level-dot"></span>
+                  <span class="level-dot"></span>
+                </div>
+              </div>
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <span class="text-uppercase small text-gold tracking-wide">Master Class</span>
+                    <h3 class="premium-course-title text-w">Python Professional</h3>
+                  </div>
+                  <!-- <div class="course-rating">
+                    <i class="fas fa-star text-gold"></i>
+                  </div> -->
+                </div>
+                <p class="course-desc text-light">Advanced Python mastery with real-world projects and expert
+                  mentorship.</p>
+
+                <!-- Premium Features List -->
+                <ul class="premium-features mb-3">
+                  <li><i class="fas fa-check-circle text-gold me-2"></i>Certificate of Completion</li>
+                  <li><i class="fas fa-check-circle text-gold me-2"></i>1-on-1 Mentorship</li>
+                  <li><i class="fas fa-check-circle text-gold me-2"></i>Project Portfolio Review</li>
+                </ul>
+
+                <div class="course-meta text-light">
+                  <span><i class="far fa-file-alt me-1"></i> 18 Modules</span>
+                  <span><i class="far fa-clock me-1"></i> 60 Hours</span>
+                </div>
+                <div class="course-progress mt-3">
+                  <div class="progress-bar bg-gold" style="width: 75%"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                  <div class="course-price">
+                    <span class="text-gold fw-bold">$299</span>
+                    <span class="text-light text-decoration-line-through ms-2">$499</span>
+                  </div>
+                  <button href="#" class="btn btn-premium-gold">
+                    <i class="fas fa-crown me-1"></i> Enroll
+                  </button>
+                </div>
+
+                <!-- Limited Time Offer -->
+                <!-- <div class="premium-limited-time-offer mt-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-gold small"><i class="fas fa-bolt me-1"></i> Limited Seats</span>
+                    <div class="timer">
+                      <span class="hours">12</span>h
+                      <span class="minutes">45</span>m
+                      <span class="seconds">30</span>s
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+
+              <!-- Glow Effects -->
+              <div class="premium-glow-1"></div>
+              <div class="premium-glow-2"></div>
+            </div>
+
+            <!-- Course 2-->
             <div class="course-card animate">
               <div class="course-img-container">
                 <img
@@ -1510,6 +1727,14 @@
                 </div>
                 <p class="course-desc">Build a solid foundation with Python syntax, data types, and control structures.
                 </p>
+
+                <!-- Premium Features List -->
+                <ul class="premium-features mb-3">
+                  <li><i class="fas fa-check-circle me-2"></i>Certificate of Completion</li>
+                  <li><i class="fas fa-check-circle me-2"></i>1-on-1 Mentorship</li>
+                  <li><i class="fas fa-check-circle me-2"></i>Project Portfolio Review</li>
+                </ul>
+
                 <div class="course-meta">
                   <span><i class="far fa-file-alt me-1"></i> 12 Modules</span>
                   <span><i class="far fa-clock me-1"></i> 30 Hours</span>
@@ -1527,6 +1752,18 @@
                     <i class="fas fa-gem me-1"></i> Enroll
                   </button>
                 </div>
+
+                <!-- Limited Time Offer -->
+                <!-- <div class="limited-time-offer mt-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-balack small"><i class="fas fa-bolt me-1"></i> Limited Seats</span>
+                    <div class="timer">
+                      <span class="hours">12</span>h
+                      <span class="minutes">45</span>m
+                      <span class="seconds">30</span>s
+                    </div>
+                  </div>
+                </div> -->
               </div>
             </div>
 
@@ -1729,7 +1966,7 @@
 
       <div class="row g-4 align-items-center">
         <!-- Editor Description -->
-        <div class="col-lg-6 animate">
+        <div class="col-lg-6 animate d-none  d-md-block ">
           <div class="feature-card">
             <div class="feature-icon">
               <i class="fas fa-code"></i>
@@ -2459,18 +2696,6 @@
 
   </section>
 
-  <!-- Call to Action -->
-  <section class="cta-section">
-    <div class="container text-center">
-      <h2 class="cta-title animate">Ready to Master Coding?</h2>
-      <p class="cta-subtitle animate delay-1">Join hundreds of students who have improved their coding skills and landed
-        their dream jobs</p>
-      <div class="animate delay-2">
-        <a href="./index.html" class="btn btn-cta">Get Started Now</a>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -2727,6 +2952,45 @@
         }
       });
     });
+
+    // Countdown Timer
+    function updateCountdown() {
+      const hoursElement = document.querySelector('.hours');
+      const minutesElement = document.querySelector('.minutes');
+      const secondsElement = document.querySelector('.seconds');
+
+      let hours = parseInt(hoursElement.textContent);
+      let minutes = parseInt(minutesElement.textContent);
+      let seconds = parseInt(secondsElement.textContent);
+
+      seconds--;
+
+      if (seconds < 0) {
+        seconds = 59;
+        minutes--;
+      }
+
+      if (minutes < 0) {
+        minutes = 59;
+        hours--;
+      }
+
+      if (hours < 0) {
+        // Timer ended
+        document.querySelector('.limited-offer-timer').innerHTML =
+          '<div class="text-danger fw-bold">Offer Expired!</div>';
+        return;
+      }
+
+      hoursElement.textContent = hours.toString().padStart(2, '0');
+      minutesElement.textContent = minutes.toString().padStart(2, '0');
+      secondsElement.textContent = seconds.toString().padStart(2, '0');
+
+      setTimeout(updateCountdown, 1000);
+    }
+
+    // Start the timer when page loads
+    document.addEventListener('DOMContentLoaded', updateCountdown);
   </script>
 </body>
 
